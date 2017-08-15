@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Idea Lab</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container ">
+      <a id="logo-container" href="#" class="brand-logo"><img src="logo.png" style="height: 10vh; width: 32vh; "></a>
+      <ul class="right hide-on-med-and-down ">
+        <li><a href="#home" class="grey-text text-darken-4">Home</a></li>
+        <li><a href="#video" class="grey-text text-darken-4">Latest Videos</a></li>
+        <li><a href="#event" class="grey-text text-darken-4">Events</a></li>
+        <li><a href="#about" class="grey-text text-darken-4">About</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#video">Latest Videos</a></li>
+        <li><a href="#event">Events</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <br><br>
+        <h2 class="header center white-text light">Got an Idea? <br/> We got you covered!</h2>
+        <div class="row center">
+          <a href="#regmodal" class="modal-trigger btn-large waves-effect waves-light red lighten-1">Get Started</a>
+        </div>
+        <br><br>
+
+      </div>
+    </div>
+    <div class="parallax"><img src="background1.png" alt="Unsplashed background img 1"></div>
+  </div>
+
+  <!-- Registration Modal Structure -->
+  <div id="regmodal" class="modal">
+    <div class="modal-content">
+      <h4 class="center">SUBMIT YOUR IDEA</h4>
+
+		    <form style="padding: 0 5vw;">
+
+		        <div class="input-field">
+		          <input id="name" type="text" class="validate">
+		          <label for="name">Name</label>
+		        </div>
+
+		        <div class="input-field">
+		          <input id="password" type="password" class="validate">
+		          <label for="password">Password</label>
+		        </div>
+
+		        <div class="input-field">
+		          <input id="email" type="email" class="validate">
+		          <label for="email">Email</label>
+		        </div>
+
+		        <div class="input-field">
+		          <input id="email" type="email" class="validate">
+		          <label for="email">Email</label>
+		        </div>
+
+		   		<div class="input-field">
+         			<textarea id="textarea1" class="materialize-textarea"></textarea>
+      			    <label for="textarea1">Enter Your Idea in 200 words....</label>
+      			</div>
+
+      			<br/>
+
+		    <a class="waves-effect waves-light btn red center" style="display: block;">SUBMIT</a>
+
+		    </form>
+
+
+
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
+
+  <div class="container" id="videos">
+    <div class="section">
+
+        <h4 class="header center">Latest Videos</h4>
+
+      <div class="row">
+        <div class="col s12 m6">
+
+		<iframe style="width: 100%; height: 40vh;" src="https://www.youtube.com/embed/bC0hlK7WGcM" frameborder="0" allowfullscreen></iframe>
+            
+        </div>
+
+        <div class="col s12 m6">
+
+		<iframe style="width: 100%; height: 40vh;"  src="https://www.youtube.com/embed/jvBaRf9LHDs" frameborder="0" allowfullscreen></iframe>
+            
+        </div>
+
+        </div>
+
+
+        <div class="row">
+        <div class="col s12 m6">
+
+		<iframe style="width: 100%; height: 40vh;" src="https://www.youtube.com/embed/t9fP_b8Ebow" frameborder="0" allowfullscreen></iframe>
+            
+        </div>
+
+        <div class="col s12 m6">
+
+		<iframe style="width: 100%; height: 40vh;"  src="https://www.youtube.com/embed/F4Zu5ZZAG7I" frameborder="0" allowfullscreen></iframe>
+            
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <div class="row center">
+          <h5 class="header col s12 light">An Idea is Salvation by Imagination!</h5>
+        </div>
+      </div>
+    </div>
+    <div class="parallax"><img src="background2.png" alt="Unsplashed background img 2"></div>
+  </div>
+
+  <div class="container" id="event">
+    <div class="section">
+
+        <h4 class="header center">Events</h4>
+
+      <div class="row">
+        <div class="col s12 m4">
+
+			      <div class="card">
+			        <div class="card-image">
+			          <img src="background3.png">
+			          <span class="card-title">Event 1</span>
+			          <a href="#eventmodal1" class="modal-trigger btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+			        </div>
+			        <div class="card-content">
+			          <p>Brief Description about the event would be present here.</p>
+			        </div>
+			      </div>
+            
+        </div>
+
+			 <!-- Modal 1 -->
+			  <div id="eventmodal1" class="modal">
+			    <div class="modal-content" style="padding: 0;">
+			      <div class="card" style="margin: 0;">
+			        <div class="card-image">
+			          <img src="background3preview.png" style="width: 100%" >
+			          <span class="card-title">Event 1</span>
+			        </div>
+			        <div class="card-content">
+			          <p>Brief Description about the event would be present here.</p>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+
+        <div class="col s12 m4">
+
+			      <div class="card">
+			        <div class="card-image">
+			          <img src="background3.png">
+			          <span class="card-title">Event 2</span>
+			          <a href="#eventmodal2" class="modal-trigger btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>			       
+			          </div>
+			        <div class="card-content">
+			          <p>Brief Description about the event would be present here.</p>
+			        </div>
+			      </div>
+            
+        </div>
+
+
+			 <!-- Modal 2 -->
+			  <div id="eventmodal2" class="modal">
+			    <div class="modal-content" style="padding: 0;">
+			      <div class="card" style="margin: 0;">
+			        <div class="card-image">
+			          <img src="background3preview.png" style="width: 100%" >
+			          <span class="card-title">Event 2</span>
+			        </div>
+			        <div class="card-content">
+			          <p>Brief Description about the event would be present here.</p>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+
+        <div class="col s12 m4">
+
+			      <div class="card">
+			        <div class="card-image">
+			          <img src="background3.png">
+			          <span class="card-title">Event 3</span>
+			          <a href="#eventmodal3" class="modal-trigger btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+			          </div>
+			        <div class="card-content">
+			          <p>Brief Description about the event would be present here.</p>
+			        </div>
+			      </div>
+            
+        </div>
+
+
+			 <!-- Modal 3 -->
+			  <div id="eventmodal3" class="modal">
+			    <div class="modal-content" style="padding: 0;">
+			      <div class="card" style="margin: 0;">
+			        <div class="card-image">
+			          <img src="background3preview.png" style="width: 100%" >
+			          <span class="card-title">Event 3</span>
+			        </div>
+			        <div class="card-content">
+			          <p>Brief Description about the event would be present here.</p>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container-fluid grey lighten-4" id="about">
+    <div class="section container">
+
+      <div class="row">
+        <div class="col s12 center">
+          <h3><i class="mdi-content-send brown-text"></i></h3>
+          <h4>About Us</h4>
+          <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3500.4669944363836!2d77.49981551457049!3d28.675673982400845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cee2391c13fd1%3A0x5397410d18100e43!2sAjay+Kumar+Garg+Engineering+College!5e0!3m2!1sen!2sin!4v1501609273760" width="100%" frameborder="0" style="border:0; height: 30vh;" allowfullscreen></iframe>
+
+  <footer class="page-footer grey darken-3">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Idea Lab</h5>
+          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright grey darken-4 ">
+      <div class="container ">
+      Powered By <a class="white-text" href="http://www.silive.in">Software Incubator</a>
+      <img src="silogo.png" width="20px" height="20px" style="float: right;">
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+    $('.modal').modal();
+  });
+  </script>
+
+  </body>
+</html>

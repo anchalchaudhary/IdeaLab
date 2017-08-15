@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="18a07607bec742538c3c300b858a9cf0" Name="Diagram1">
+        <EntityTypeShape EntityType="DBIdeaLabModel.tblUser" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DBIdeaLabModel.tblBranch" Width="1.5" PointX="1.125" PointY="1.375" />
+        <AssociationConnector Association="DBIdeaLabModel.FK_tblUsers_tblBranch" />
+        <EntityTypeShape EntityType="DBIdeaLabModel.tblEventRegistration" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="DBIdeaLabModel.tblEvent" Width="1.5" PointX="0.75" PointY="5" />
+        <AssociationConnector Association="DBIdeaLabModel.FK__tblEventR__Event__117F9D94" />
+        <EntityTypeShape EntityType="DBIdeaLabModel.tblUploadedImage" Width="1.5" PointX="0.75" PointY="8.25" />
+        <AssociationConnector Association="DBIdeaLabModel.FK_tblEvents_tblUploadedImage" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

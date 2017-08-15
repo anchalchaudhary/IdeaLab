@@ -1,0 +1,81 @@
+﻿@model IdeaLab.Models.WebsiteModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div>
+    <div class="row">
+        @foreach (var item in ViewBag.EventList)
+        {
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="~/background3.png">
+                        <span class="card-title">@item.EventName</span>
+                        <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                    </div>
+                    <div class="card-content">
+                        <p>Date: @item.DateOfEvent.ToShortDateString()</p>
+                        <p>@item.Details</p>
+                    </div>
+                    <input type="hidden" id="hiddenEventID" />
+                    <input type="button" value="Register" class="waves-effect waves-light btn red center" onclick="Event(@item.EventID)" style="display: block;" />
+                    @*<button class="waves-effect waves-light btn red center" onclick="Event(@item.EventID)">Register</button>*@
+                </div>
+            </div>
+
+    @*</div>*@
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4 class="center">REGISTER</h4>
+            @*<form style="padding: 0 5vw;" id="form1">*@
+                @using (Html.BeginForm("EventRegistration", "Test", new { EventID = @item.EventID }, FormMethod.Post, new { style = "padding: 0 5vw;" }))
+                {
+                <div class="input-field">
+                    @Html.TextBoxFor(model => model.eventregistration.Name, new { @id = "name", @class = "validate" })
+                    <label for="name">Name</label>
+                    @Html.ValidationMessageFor(model => model.eventregistration.Name, "", new { @class = "error" })
+                </div>
+                <div class="input-field">
+                    @Html.TextBoxFor(model => model.eventregistration.EmailID, new { @id = "email", @class = "validate" })
+                    <label for="email">Email</label>
+                    @Html.ValidationMessageFor(model => model.eventregistration.EmailID, "", new { @class = "error" })
+                </div>
+                <div class="input-field">
+                    @Html.TextBoxFor(model => model.eventregistration.ContactNumber, new { @id = "contactNumber", @class = "validate" })
+                    <label for="contactNumber">Contact Number</label>
+                    @Html.ValidationMessageFor(model => model.eventregistration.ContactNumber, "", new { @class = "error" })
+                </div>
+                @*@Html.HiddenFor(model=>model.eventregistration.EventID)*@
+                <br />
+                <input type="submit" value="Submit" class="waves-effect waves-light btn red center" style="display: block;" />
+
+            @*</form>*@
+                }
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+        }
+    <script>
+        var Event = function (EventID) {
+            debugger
+                $("#hiddenEventID").val(EventID);
+                $("#modal1").modal('open');
+            }
+    </script>
+
+</div>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="~/js/materialize.js"></script>
+<script src="~/js/init.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.modal').modal();
+        });
+</script>

@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="~/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+<body>
+    <nav class="white" role="navigation">
+    <div class="nav-wrapper container ">
+        <a id="logo-container" href="#" class="brand-logo"><img src="~/logo.png" style="height: 10vh; width: 32vh; "></a>
+        <h5 class="black-text right hide-on-med-and-down ">
+            ADMIN PANEL
+        </h5>
+
+        <div id="nav-mobile" class="side-nav">
+            <h4 class="black-text">ADMIN PANEL</h4>
+        </div>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+</nav>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="~/js/materialize.js"></script>
+    <script src="~/js/init.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

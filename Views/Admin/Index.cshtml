@@ -1,0 +1,62 @@
+﻿@model IdeaLab.Models.EventsModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+@Html.Raw(TempData["msg"])
+<h4 class="center">Add New Event</h4>
+<div class="row">
+    <div class="col m6 offset-m3">
+        @using (Html.BeginForm("Index", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", style = "padding: 0 5vw;" }))
+        {
+            <div class="input-field">
+                @Html.TextBoxFor(model => model.EventName, new { @id = "eventname", @class = "validate" })
+                <label for="eventname">Name of Event</label>
+                @Html.ValidationMessageFor(model => model.EventName, "", new { @class = "error" })
+            </div>
+            <div class="input-field">
+                <h6 class="grey-text">Date of Event</h6>
+                @Html.TextBoxFor(model => model.DateOfEvent, new { @id = "eventdate", @type = "date" })
+                @*<label for="eventdate">Date of Event</label>*@
+                @Html.ValidationMessageFor(model => model.DateOfEvent, "", new { @class = "error" })
+                @if (ViewBag.DateError == "Invalid Date")
+                {
+                    <div class="error">@ViewBag.DateError</div>
+                }
+            </div>
+            <div class="input-field">
+                @Html.TextAreaFor(model => model.Details, new { @id = "details", @class = "materialize-textarea" })
+                <label for="details">Details of Event</label>
+                @Html.ValidationMessageFor(model => model.Details, "", new { @class = "error" })
+            </div>
+            <div class="input-field">
+                <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
+            </div>
+            <button class="waves-effect waves-light btn red center" style="display: block;">Submit</button>
+        }
+        <br />
+        <a href="/Admin/ViewEvents" class="waves-effect waves-light btn red center" style="display: block;">View Events</a>
+        <br />
+        <a href="/Admin/ViewEventRegistrations" class="waves-effect waves-light btn red center" style="display: block;">View Event Registrations</a>
+        <br />
+        <a href="/Admin/ViewIdeas" class="waves-effect waves-light btn red center" style="display: block;">View Ideas</a>
+
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="~/js/materialize.js"></script>
+<script src="~/js/init.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.modal').modal();
+    });
+
+</script>

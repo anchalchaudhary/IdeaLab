@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBIdeaLabModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBranch">
+          <Key>
+            <PropertyRef Name="BranchID" />
+          </Key>
+          <Property Name="BranchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Branch" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tblEventRegistration">
+          <Key>
+            <PropertyRef Name="RegistrationID" />
+          </Key>
+          <Property Name="RegistrationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="ContactNumber" Type="nvarchar(max)" />
+          <Property Name="EmailID" Type="nvarchar(max)" />
+          <Property Name="EventID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblEvents">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventName" Type="nvarchar(max)" />
+          <Property Name="DateOfEvent" Type="date" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="ImageID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblUploadedImage">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageByte" Type="image" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="ContactNumber" Type="nvarchar(max)" />
+          <Property Name="Batch" Type="nvarchar(max)" />
+          <Property Name="BranchID" Type="int" />
+          <Property Name="Idea" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__tblEventR__Event__117F9D94">
+          <End Role="tblEvents" Type="Self.tblEvents" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblEventRegistration" Type="Self.tblEventRegistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEvents">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="tblEventRegistration">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblEvents_tblUploadedImage">
+          <End Role="tblUploadedImage" Type="Self.tblUploadedImage" Multiplicity="0..1" />
+          <End Role="tblEvents" Type="Self.tblEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUploadedImage">
+              <PropertyRef Name="ImageID" />
+            </Principal>
+            <Dependent Role="tblEvents">
+              <PropertyRef Name="ImageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUsers_tblBranch">
+          <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="0..1" />
+          <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="tblUsers">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBIdeaLabModelStoreContainer">
+          <EntitySet Name="tblBranch" EntityType="Self.tblBranch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEventRegistration" EntityType="Self.tblEventRegistration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblEvents" EntityType="Self.tblEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUploadedImage" EntityType="Self.tblUploadedImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblEventR__Event__117F9D94" Association="Self.FK__tblEventR__Event__117F9D94">
+            <End Role="tblEvents" EntitySet="tblEvents" />
+            <End Role="tblEventRegistration" EntitySet="tblEventRegistration" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblEvents_tblUploadedImage" Association="Self.FK_tblEvents_tblUploadedImage">
+            <End Role="tblUploadedImage" EntitySet="tblUploadedImage" />
+            <End Role="tblEvents" EntitySet="tblEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsers_tblBranch" Association="Self.FK_tblUsers_tblBranch">
+            <End Role="tblBranch" EntitySet="tblBranch" />
+            <End Role="tblUsers" EntitySet="tblUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBIdeaLabModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBIdeaLabEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblUsers" EntityType="DBIdeaLabModel.tblUser" />
+          <EntitySet Name="tblBranches" EntityType="DBIdeaLabModel.tblBranch" />
+          <AssociationSet Name="FK_tblUsers_tblBranch" Association="DBIdeaLabModel.FK_tblUsers_tblBranch">
+            <End Role="tblBranch" EntitySet="tblBranches" />
+            <End Role="tblUser" EntitySet="tblUsers" />
+          </AssociationSet>
+          <EntitySet Name="tblEventRegistrations" EntityType="DBIdeaLabModel.tblEventRegistration" />
+          <EntitySet Name="tblEvents" EntityType="DBIdeaLabModel.tblEvent" />
+          <AssociationSet Name="FK__tblEventR__Event__117F9D94" Association="DBIdeaLabModel.FK__tblEventR__Event__117F9D94">
+            <End Role="tblEvent" EntitySet="tblEvents" />
+            <End Role="tblEventRegistration" EntitySet="tblEventRegistrations" />
+          </AssociationSet>
+          <EntitySet Name="tblUploadedImages" EntityType="DBIdeaLabModel.tblUploadedImage" />
+          <AssociationSet Name="FK_tblEvents_tblUploadedImage" Association="DBIdeaLabModel.FK_tblEvents_tblUploadedImage">
+            <End Role="tblUploadedImage" EntitySet="tblUploadedImages" />
+            <End Role="tblEvent" EntitySet="tblEvents" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Batch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Idea" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BranchID" Type="Int32" />
+          <NavigationProperty Name="tblBranch" Relationship="DBIdeaLabModel.FK_tblUsers_tblBranch" FromRole="tblUser" ToRole="tblBranch" />
+        </EntityType>
+        <EntityType Name="tblBranch">
+          <Key>
+            <PropertyRef Name="BranchID" />
+          </Key>
+          <Property Name="BranchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Branch" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblUsers" Relationship="DBIdeaLabModel.FK_tblUsers_tblBranch" FromRole="tblBranch" ToRole="tblUser" />
+        </EntityType>
+        <Association Name="FK_tblUsers_tblBranch">
+          <End Type="DBIdeaLabModel.tblBranch" Role="tblBranch" Multiplicity="0..1" />
+          <End Type="DBIdeaLabModel.tblUser" Role="tblUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBranch">
+              <PropertyRef Name="BranchID" />
+            </Principal>
+            <Dependent Role="tblUser">
+              <PropertyRef Name="BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblEventRegistration">
+          <Key>
+            <PropertyRef Name="RegistrationID" />
+          </Key>
+          <Property Name="RegistrationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EventID" Type="Int32" />
+          <NavigationProperty Name="tblEvent" Relationship="DBIdeaLabModel.FK__tblEventR__Event__117F9D94" FromRole="tblEventRegistration" ToRole="tblEvent" />
+        </EntityType>
+        <EntityType Name="tblEvent">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfEvent" Type="DateTime" Precision="0" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblEventRegistrations" Relationship="DBIdeaLabModel.FK__tblEventR__Event__117F9D94" FromRole="tblEvent" ToRole="tblEventRegistration" />
+          <Property Name="ImageID" Type="Int32" />
+          <NavigationProperty Name="tblUploadedImage" Relationship="DBIdeaLabModel.FK_tblEvents_tblUploadedImage" FromRole="tblEvent" ToRole="tblUploadedImage" />
+        </EntityType>
+        <Association Name="FK__tblEventR__Event__117F9D94">
+          <End Type="DBIdeaLabModel.tblEvent" Role="tblEvent" Multiplicity="0..1" />
+          <End Type="DBIdeaLabModel.tblEventRegistration" Role="tblEventRegistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblEvent">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="tblEventRegistration">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblUploadedImage">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageByte" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tblEvents" Relationship="DBIdeaLabModel.FK_tblEvents_tblUploadedImage" FromRole="tblUploadedImage" ToRole="tblEvent" />
+        </EntityType>
+        <Association Name="FK_tblEvents_tblUploadedImage">
+          <End Type="DBIdeaLabModel.tblUploadedImage" Role="tblUploadedImage" Multiplicity="0..1" />
+          <End Type="DBIdeaLabModel.tblEvent" Role="tblEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUploadedImage">
+              <PropertyRef Name="ImageID" />
+            </Principal>
+            <Dependent Role="tblEvent">
+              <PropertyRef Name="ImageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBIdeaLabModelStoreContainer" CdmEntityContainer="DBIdeaLabEntities">
+        <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="DBIdeaLabModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+                <ScalarProperty Name="Idea" ColumnName="Idea" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBranches">
+            <EntityTypeMapping TypeName="DBIdeaLabModel.tblBranch">
+              <MappingFragment StoreEntitySet="tblBranch">
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEventRegistrations">
+            <EntityTypeMapping TypeName="DBIdeaLabModel.tblEventRegistration">
+              <MappingFragment StoreEntitySet="tblEventRegistration">
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblEvents">
+            <EntityTypeMapping TypeName="DBIdeaLabModel.tblEvent">
+              <MappingFragment StoreEntitySet="tblEvents">
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="DateOfEvent" ColumnName="DateOfEvent" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUploadedImages">
+            <EntityTypeMapping TypeName="DBIdeaLabModel.tblUploadedImage">
+              <MappingFragment StoreEntitySet="tblUploadedImage">
+                <ScalarProperty Name="ImageByte" ColumnName="ImageByte" />
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

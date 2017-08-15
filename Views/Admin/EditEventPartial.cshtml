@@ -1,0 +1,48 @@
+﻿@model IdeaLab.Models.EventsModel
+<div>
+    <form id="EditEventForm" style = "padding: 0 5vw;" >
+        @Html.HiddenFor(m => m.EventID)
+
+        @Html.LabelFor(model => model.EventName, "Event's Name")
+        @Html.TextBoxFor(model => model.EventName, new { @id = "name", @class = "validate" })
+        @Html.ValidationMessageFor(model => model.EventName, "", new { @class = "error" })
+
+        @Html.LabelFor(model => model.DateOfEvent, "Date")
+        @Html.TextBoxFor(model => model.DateOfEvent, new { @id = "date", @class = "validate" })
+        @Html.ValidationMessageFor(model => model.DateOfEvent, "", new { @class = "error" })
+
+        @Html.LabelFor(model => model.Details, "Details")
+        @Html.TextAreaFor(model => model.Details, new { @id = "details", @class = "materialize-textarea" })
+        @Html.ValidationMessageFor(model => model.Details, "", new { @class = "error" })
+
+        <div>
+            <a href="#" id="btnUpdate" class="waves-effect waves-light btn red center">
+                @if (Model.EventID > 0)
+                {
+                    <span>Update</span>
+                }
+            </a>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#btnUpdate").click(function () {
+            var editedData = $("#EditEventForm").serialize();
+
+            if (!$("#EditEventForm").valid())
+            {
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Index",
+                data: editedData,
+                success: function () {
+                    $("#EditEventModal").modal('close');
+                    window.location.href = "/Admin/ViewEvents";
+                }
+            })
+        })
+    })
+</script>

@@ -1,0 +1,87 @@
+﻿@model IdeaLab.Models.UserModel
+
+<div class="center" style="margin-top:5%">
+    <div class="row">
+        <div class="col m10 offset-m1">
+            <table class="table striped">
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Email ID</th>
+                    <th>Branch</th>
+                    <th>Batch</th>
+                    <th>Idea</th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    @if (ViewBag.UserList != null)
+                    {
+                        foreach (var item in ViewBag.UserList)
+                        {
+                            <tr id="row_@item.ID">
+                                <td>@item.Name</td>
+                                <td>@item.ContactNumber</td>
+                                <td>@item.Email</td>
+                                <td>@item.Branch</td>
+                                <td>@item.Batch</td>
+                                <td>@item.Idea</td>
+                                <td><a class="btn-small btn-floating red" href="#" onclick="ConfirmDelete(@item.ID)"><i class="material-icons">delete</i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hiddenID" />
+
+<!--Delete Idea Modal-->
+<div class="modal" id="DeleteIdeaModal">
+    <div class="modal-content" id="DeleteIdeaModalBody">
+        <h3>Are you sure?</h3>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-default" onclick=$("#DeleteIdeaModal").modal("close")>Cancel</a>
+        <a href="#" class="btn btn-success" onclick="DeleteIdea()">Delete</a>
+    </div>
+</div>
+
+<a href="/Admin/Index">Go Back</a>
+<script>
+    var ConfirmDelete = function (ID) {
+        $("#hiddenID").val(ID);
+        $("#DeleteIdeaModal").modal('open');
+    }
+
+    var DeleteIdea = function () {
+        debugger
+        var data = $("#hiddenID").val();
+        $.ajax({
+            type: "POST",
+            url: "/Admin/DeleteIdea",
+            data: { ID: data },
+            success: function (result) {
+                $("#DeleteIdeaModal").modal('close');
+                alert("Deleted");
+                $("#row_" + data).remove();
+            }
+        })
+    }
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="~/js/materialize.js"></script>
+<script src="~/js/init.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.modal').modal();
+    });
+</script>
+
+
+

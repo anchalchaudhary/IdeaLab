@@ -1,0 +1,99 @@
+﻿@model IdeaLab.Models.EventsModel
+
+@Html.Raw(TempData["updated"])
+<div class="center" style="margin-top:5%">
+    <div class="row">
+        <div class="col m10 offset-m1">
+            <table class="table striped">
+                <tr>
+                    <th>Event's Name</th>
+                    <th>Date</th>
+                    <th>Details</th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+                <tbody>
+                    @if (ViewBag.EventList != null)
+                    {
+                        foreach (var item in ViewBag.EventList)
+                        {
+                            <tr id="row_@item.EventID">
+                                <td>@item.EventName</td>
+                                <td>@item.DateOfEvent</td>
+                                <td>@item.Details</td>
+                                <td><a href="#EditEventModal" class="btn-small btn-floating blue modal-trigger" onclick="EditEvent(@item.EventID)"><i class="material-icons">edit</i></a></td>
+                                <td><a class="btn-small btn-floating red" href="#" onclick="ConfirmDelete(@item.EventID)"><i class="material-icons">delete</i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hiddenEventID" />
+
+<!--Edit Event Modal-->
+<div id="EditEventModal" class="modal">
+    <div class="modal-content" id="EditEventModalBody">
+
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>
+<a href="/Admin/Index">Go Back</a>
+
+<script>
+    var EditEvent = function (EventID) {
+        var url = "/Admin/EditEvent?EventID=" + EventID;
+        $("#EditEventModalBody").load(url, function () {
+            $("#EditEventModal").modal('open');
+        })
+    }
+</script>
+
+<!--Delete Event Modal-->
+<div class="modal" id="DeleteEventModal">
+    <div class="modal-content" id="DeleteEventModalBody">
+        <h3>Are you sure?</h3>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-default" onclick=$("#DeleteEventModal").modal("close")>Cancel</a>
+        <a href="#" class="btn btn-success" onclick="DeleteEvent()">Delete</a>
+    </div>
+</div>
+<script>
+    var ConfirmDelete = function (EventID) {
+        $("#hiddenEventID").val(EventID);
+        $("#DeleteEventModal").modal('open');
+    }
+
+    var DeleteEvent = function () {
+        debugger
+        var data = $("#hiddenEventID").val();
+        $.ajax({
+            type: "POST",
+            url: "/Admin/DeleteEvent",
+            data: { EventID: data },
+            success: function (result) {
+                $("#DeleteEventModal").modal('close');
+                alert("Deleted");
+                $("#row_" + data).remove();
+            }
+        })
+    }
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="~/js/materialize.js"></script>
+<script src="~/js/init.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.modal').modal();
+    });
+</script>

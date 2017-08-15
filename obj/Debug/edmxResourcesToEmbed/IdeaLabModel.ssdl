@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBIdeaLabModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblBranch">
+    <Key>
+      <PropertyRef Name="BranchID" />
+    </Key>
+    <Property Name="BranchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Branch" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tblEventRegistration">
+    <Key>
+      <PropertyRef Name="RegistrationID" />
+    </Key>
+    <Property Name="RegistrationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="ContactNumber" Type="nvarchar(max)" />
+    <Property Name="EmailID" Type="nvarchar(max)" />
+    <Property Name="EventID" Type="int" />
+  </EntityType>
+  <EntityType Name="tblEvents">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EventName" Type="nvarchar(max)" />
+    <Property Name="DateOfEvent" Type="date" />
+    <Property Name="Details" Type="nvarchar(max)" />
+    <Property Name="ImageID" Type="int" />
+  </EntityType>
+  <EntityType Name="tblUploadedImage">
+    <Key>
+      <PropertyRef Name="ImageID" />
+    </Key>
+    <Property Name="ImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImageByte" Type="image" />
+  </EntityType>
+  <EntityType Name="tblUsers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="ContactNumber" Type="nvarchar(max)" />
+    <Property Name="Batch" Type="nvarchar(max)" />
+    <Property Name="BranchID" Type="int" />
+    <Property Name="Idea" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK__tblEventR__Event__117F9D94">
+    <End Role="tblEvents" Type="Self.tblEvents" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblEventRegistration" Type="Self.tblEventRegistration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblEvents">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="tblEventRegistration">
+        <PropertyRef Name="EventID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblEvents_tblUploadedImage">
+    <End Role="tblUploadedImage" Type="Self.tblUploadedImage" Multiplicity="0..1" />
+    <End Role="tblEvents" Type="Self.tblEvents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUploadedImage">
+        <PropertyRef Name="ImageID" />
+      </Principal>
+      <Dependent Role="tblEvents">
+        <PropertyRef Name="ImageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUsers_tblBranch">
+    <End Role="tblBranch" Type="Self.tblBranch" Multiplicity="0..1" />
+    <End Role="tblUsers" Type="Self.tblUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBranch">
+        <PropertyRef Name="BranchID" />
+      </Principal>
+      <Dependent Role="tblUsers">
+        <PropertyRef Name="BranchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBIdeaLabModelStoreContainer">
+    <EntitySet Name="tblBranch" EntityType="Self.tblBranch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblEventRegistration" EntityType="Self.tblEventRegistration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblEvents" EntityType="Self.tblEvents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUploadedImage" EntityType="Self.tblUploadedImage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tblEventR__Event__117F9D94" Association="Self.FK__tblEventR__Event__117F9D94">
+      <End Role="tblEvents" EntitySet="tblEvents" />
+      <End Role="tblEventRegistration" EntitySet="tblEventRegistration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblEvents_tblUploadedImage" Association="Self.FK_tblEvents_tblUploadedImage">
+      <End Role="tblUploadedImage" EntitySet="tblUploadedImage" />
+      <End Role="tblEvents" EntitySet="tblEvents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUsers_tblBranch" Association="Self.FK_tblUsers_tblBranch">
+      <End Role="tblBranch" EntitySet="tblBranch" />
+      <End Role="tblUsers" EntitySet="tblUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

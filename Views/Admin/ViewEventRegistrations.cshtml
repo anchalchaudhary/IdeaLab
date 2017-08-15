@@ -1,0 +1,82 @@
+﻿@model IdeaLab.Models.EventRegistrationModel
+
+<div class="center" style="margin-top:5%">
+    <div class="row">
+        <div class="col m10 offset-m1">
+            <table class="table striped">
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Email ID</th>
+                    <th>Event</th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    @if (ViewBag.EventRegList != null)
+                    {
+                        foreach (var item in ViewBag.EventRegList)
+                        {
+                            <tr id="row_@item.RegistrationID">
+                                <td>@item.Name</td>
+                                <td>@item.ContactNumber</td>
+                                <td>@item.EmailID</td>
+                                <td>@item.EventName</td>
+                                <td><a class="btn-small btn-floating red" href="#" onclick="ConfirmDelete(@item.RegistrationID)"><i class="material-icons">delete</i></a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hiddenEventRegID" />
+
+<!--Delete Event Registration Modal-->
+<div class="modal" id="DeleteEventRegModal">
+    <div class="modal-content" id="DeleteEventRegModalBody">
+        <h3>Are you sure?</h3>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn btn-default" onclick=$("#DeleteEventRegModal").modal("close")>Cancel</a>
+        <a href="#" class="btn btn-success" onclick="DeleteEventReg()">Delete</a>
+    </div>
+</div>
+<a href="/Admin/Index">Go Back</a>
+
+<script>
+    var ConfirmDelete = function (RegistrationID) {
+        $("#hiddenEventRegID").val(RegistrationID);
+        $("#DeleteEventRegModal").modal('open');
+    }
+
+    var DeleteEventReg = function () {
+        debugger
+        var data = $("#hiddenEventRegID").val();
+        $.ajax({
+            type: "POST",
+            url: "/Admin/DeleteEventReg",
+            data: { RegistrationID: data },
+            success: function (result) {
+                $("#DeleteEventRegModal").modal('close');
+                alert("Deleted");
+                $("#row_" + data).remove();
+            }
+        })
+    }
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="~/js/materialize.js"></script>
+<script src="~/js/init.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.modal').modal();
+    });
+</script>
+
+

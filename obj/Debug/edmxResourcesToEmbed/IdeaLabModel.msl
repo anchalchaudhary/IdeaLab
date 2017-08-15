@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBIdeaLabModelStoreContainer" CdmEntityContainer="DBIdeaLabEntities">
+    <EntitySetMapping Name="tblUsers">
+      <EntityTypeMapping TypeName="DBIdeaLabModel.tblUser">
+        <MappingFragment StoreEntitySet="tblUsers">
+          <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+          <ScalarProperty Name="Idea" ColumnName="Idea" />
+          <ScalarProperty Name="Batch" ColumnName="Batch" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblBranches">
+      <EntityTypeMapping TypeName="DBIdeaLabModel.tblBranch">
+        <MappingFragment StoreEntitySet="tblBranch">
+          <ScalarProperty Name="Branch" ColumnName="Branch" />
+          <ScalarProperty Name="BranchID" ColumnName="BranchID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEventRegistrations">
+      <EntityTypeMapping TypeName="DBIdeaLabModel.tblEventRegistration">
+        <MappingFragment StoreEntitySet="tblEventRegistration">
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RegistrationID" ColumnName="RegistrationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEvents">
+      <EntityTypeMapping TypeName="DBIdeaLabModel.tblEvent">
+        <MappingFragment StoreEntitySet="tblEvents">
+          <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="DateOfEvent" ColumnName="DateOfEvent" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUploadedImages">
+      <EntityTypeMapping TypeName="DBIdeaLabModel.tblUploadedImage">
+        <MappingFragment StoreEntitySet="tblUploadedImage">
+          <ScalarProperty Name="ImageByte" ColumnName="ImageByte" />
+          <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
