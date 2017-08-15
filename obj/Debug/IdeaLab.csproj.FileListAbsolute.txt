@@ -89,3 +89,4 @@ C:\Users\Anchal Chaudhary\Documents\Visual Studio 2015\Projects\IdeaLab\IdeaLab\
 C:\Users\Anchal Chaudhary\Documents\Visual Studio 2015\Projects\IdeaLab\IdeaLab\obj\Debug\IdeaLab.dll
 C:\Users\Anchal Chaudhary\Documents\Visual Studio 2015\Projects\IdeaLab\IdeaLab\obj\Debug\IdeaLab.pdb
 C:\Users\Anchal Chaudhary\Documents\Visual Studio 2015\Projects\IdeaLab\IdeaLab\obj\Debug\IdeaLab.csprojResolveAssemblyReference.cache
+C:\Users\Anchal Chaudhary\Documents\Visual Studio 2015\Projects\IdeaLab\IdeaLab\obj\Debug\IdeaLab.csproj.CoreCompileInputs.cache
