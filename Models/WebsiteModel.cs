@@ -5,6 +5,7 @@ using System.Web;
 
 namespace IdeaLab.Models
 {
+    //this model contains reference to other models and is used to access multiple models in the same  view
     public class WebsiteModel
     {
         public EventRegistrationModel eventregistration { get; set; }

@@ -12,29 +12,28 @@ namespace IdeaLab.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            //List of Branches
             List<tblBranch> list = db.tblBranches.ToList();
             ViewBag.BranchList = new SelectList(list, "BranchID", "Branch");
 
-             List<EventsModel> eventList = db.tblEvents.OrderByDescending(x=> x.DateOfEvent).Select(x => new EventsModel
+            //Get top 3 events from farthest date in descending order
+            List<EventsModel> eventList = db.tblEvents.OrderByDescending(x => x.DateOfEvent).Select(x => new EventsModel
             {
                 EventID = x.EventID,
                 EventName = x.EventName,
                 DateOfEvent = x.DateOfEvent,
                 Details = x.Details,
                 ImageID = x.ImageID
-             }).Take(3).ToList();
+            }).Take(3).ToList();
 
             ViewBag.EventList = eventList;
-
-            //List<tblUploadedImage> imagelist = db.tblUploadedImages.ToList();
-            //ViewBag.ImageList = db.tblUploadedImages.Select(x => new ImageStoreModel { ImageID = x.ImageID, ImageByte = x.ImageByte }).ToList();
 
             return View();
         }
         [HttpPost]
-        public ActionResult Register(WebsiteModel model)
+        public ActionResult Register(WebsiteModel model)    //for user to register and give his idea
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 tblUser objtblUser = new tblUser();
                 objtblUser.Name = model.user.Name;
@@ -51,7 +50,7 @@ namespace IdeaLab.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult EventRegistration(WebsiteModel model, int EventID)
+        public ActionResult EventRegistration(WebsiteModel model, int EventID)  //for user to register for an upcoming event
         {
             List<EventsModel> eventList = db.tblEvents.Select(x => new EventsModel
             {
@@ -76,12 +75,12 @@ namespace IdeaLab.Controllers
             return RedirectToAction("Index");
         }
 
-        public FileContentResult RetrieveImage(int ImageID)
+        public FileContentResult RetrieveImage(int ImageID) //display image of event by accessing it from backend
         {
             tblUploadedImage image = db.tblUploadedImages.FirstOrDefault(p => p.ImageID == ImageID);
             if (image != null)
             {
-                return File(image.ImageByte,"image/jpg");
+                return File(image.ImageByte, "image/jpg");
             }
             else
             {

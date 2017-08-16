@@ -26,6 +26,6 @@ namespace IdeaLab.Models
         [RegularExpression(@"^(.{1,200})", ErrorMessage = "Only 200 characters allowed")]
         public string Idea { get; set; }
 
-        public string Branch { get; set; }
+        public string Branch { get; set; } //used to store branch name from tblBranches and display in dropdown
     }
 }

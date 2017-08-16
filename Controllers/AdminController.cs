@@ -17,11 +17,11 @@ namespace IdeaLab.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Index(EventsModel model)
+        public ActionResult Index(EventsModel model)    //display items from database in view
         {
             if (ModelState.IsValid)
             {
-                if (model.EventID > 0) //EDITS THE EXISTING RECORD IN tblTasks
+                if (model.EventID > 0) //Edit the existing Event in tblEvents
                 {
                     tblEvent objtblEventUpdated = db.tblEvents.SingleOrDefault(x => x.EventID == model.EventID);
 
@@ -32,18 +32,15 @@ namespace IdeaLab.Controllers
                     db.SaveChanges();
 
                     TempData["updated"] = "<script>alert('Event Updated');</script>";
-
-                    //return RedirectToAction("ViewEvents");
-
                 }
-                else //new Record
+                else //Add new Event to tblEvents
                 {
-                    HttpPostedFileBase file = Request.Files["ImageData"];
-                    int imgID = UploadImageInDataBase(file);
+                    HttpPostedFileBase file = Request.Files["ImageData"]; // reads uploaded image
+                    int imgID = UploadImageInDataBase(file); // function call to store image in DB, imgID receives ID of the image added
                     if (imgID != 0)
                     {
 
-                        if (model.DateOfEvent >= DateTime.Now.Date)
+                        if (model.DateOfEvent >= DateTime.Now.Date) //to check that date of event is not in past
                         {
                             tblEvent objtblEvent = new tblEvent();
                             objtblEvent.EventName = model.EventName;
@@ -66,10 +63,12 @@ namespace IdeaLab.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        //function to store uploaded image in database in form of bytearray
         public int UploadImageInDataBase(HttpPostedFileBase file)
         {
             ImageStoreModel imagestoremodel = new ImageStoreModel();
-            imagestoremodel.ImageByte = ConvertToBytes(file);
+            imagestoremodel.ImageByte = ConvertToBytes(file); //function call to convert file to byte array
 
             tblUploadedImage objtblUploadedImage = new tblUploadedImage();
             objtblUploadedImage.ImageByte = imagestoremodel.ImageByte;
@@ -77,7 +76,7 @@ namespace IdeaLab.Controllers
             db.tblUploadedImages.Add(objtblUploadedImage);
 
             int i = db.SaveChanges();
-            int imageID = objtblUploadedImage.ImageID;
+            int imageID = objtblUploadedImage.ImageID; //retrieve ID of added image
             if (i == 1)
             {
                 return imageID;
@@ -87,7 +86,7 @@ namespace IdeaLab.Controllers
                 return 0;
             }
         }
-
+        //function to convert file to byte array
         public byte[] ConvertToBytes(HttpPostedFileBase image)
         {
             byte[] imageBytes = null;
@@ -96,6 +95,7 @@ namespace IdeaLab.Controllers
             imageBytes = reader.ReadBytes((int)image.ContentLength);
             return imageBytes;
         }
+        //function to view already added events
         public ActionResult ViewEvents(EventsModel model)
         {
             List<EventsModel> eventList = db.tblEvents.Select(x => new EventsModel
@@ -109,6 +109,7 @@ namespace IdeaLab.Controllers
             ViewBag.EventList = eventList;
             return View();
         }
+        //function to edit any event
         public ActionResult EditEvent(int EventID)
         {
             EventsModel model = new EventsModel();
@@ -122,6 +123,7 @@ namespace IdeaLab.Controllers
             }
             return PartialView("EditEventPartial", model);
         }
+        //function to delete an event
         public JsonResult DeleteEvent(int EventID)
         {
             bool result = false;
@@ -136,6 +138,7 @@ namespace IdeaLab.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        //function  to view registrations for an event
         public ActionResult ViewEventRegistrations(EventRegistrationModel model)
         {
             List<EventRegistrationModel> eventRegList = db.tblEventRegistrations.Select(x => new EventRegistrationModel
@@ -150,6 +153,7 @@ namespace IdeaLab.Controllers
             ViewBag.EventRegList = eventRegList;
             return View();
         }
+        //function to delete registration for an event
         public JsonResult DeleteEventReg(int RegistrationID)
         {
             bool result = false;
@@ -164,6 +168,7 @@ namespace IdeaLab.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        //function to view ideas given by users
         public ActionResult ViewIdeas(UserModel model)
         {
             List<UserModel> userList = db.tblUsers.Select(x => new UserModel
@@ -180,6 +185,7 @@ namespace IdeaLab.Controllers
             ViewBag.UserList = userList;
             return View();
         }
+        //function to delete ideas given by users
         public JsonResult DeleteIdea(int ID)
         {
             bool result = false;

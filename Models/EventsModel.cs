@@ -17,8 +17,6 @@ namespace IdeaLab.Models
         [Required(ErrorMessage = "Event Deatils are required")]
         public string Details { get; set; }
         public Nullable<int> ImageID { get; set; }
-        //public HttpPostedFileWrapper ImageFile { get; set; }
-        //public FileContentResult ImageFile { get; set; }
-        public byte[] ImageByte { get; set; }
+        public byte[] ImageByte { get; set; } //byte array used in HomeController to view the image
     }
 }
