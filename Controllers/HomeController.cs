@@ -12,6 +12,8 @@ namespace IdeaLab.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            Session["LoggedIn"] = null;
+
             //List of Branches
             List<tblBranch> list = db.tblBranches.ToList();
             ViewBag.BranchList = new SelectList(list, "BranchID", "Branch");

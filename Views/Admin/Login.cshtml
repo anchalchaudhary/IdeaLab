@@ -27,8 +27,9 @@
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "error" })
             </div>
 
+            <div class="error">@ViewBag.InvalidCredentials</div>
             <div class="input-field">
-                <input type="submit" class="waves-effect waves-light btn red center" value="LOGIN" />
+                <button class="waves-effect waves-light btn red center">LOGIN</button>
             </div>
         }
     </div>

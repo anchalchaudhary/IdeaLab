@@ -14,21 +14,23 @@ namespace IdeaLab.Controllers
         // GET: Admin
         public ActionResult Login()
         {
+            Session["LoggedIn"] = null;
             return View();
         }
         [HttpPost]
         public ActionResult Login(LoginModel model)
         {
-            if(model.LoginID == "admin" && model.Password == "admin123")
+            if (model.LoginID == "admin" && model.Password == "admin123")
             {
-                Session["LoggedIn"] = "yes";
-                return View("Index");
+                Session["LoggedIn"] = 1;
+                return RedirectToAction("Index");
             }
+            ViewBag.InvalidCredentials = "Incorrect ID or Password";
             return View();
         }
         public ActionResult Index()
         {
-            if (Session["LoggedIn"].ToString() == "yes")
+            if (Convert.ToInt32(Session["LoggedIn"]) == 1)
             {
                 return View();
             }
@@ -116,16 +118,20 @@ namespace IdeaLab.Controllers
         //function to view already added events
         public ActionResult ViewEvents(EventsModel model)
         {
-            List<EventsModel> eventList = db.tblEvents.Select(x => new EventsModel
+            if (Convert.ToInt32(Session["LoggedIn"]) == 1)
             {
-                EventID = x.EventID,
-                EventName = x.EventName,
-                DateOfEvent = x.DateOfEvent,
-                Details = x.Details
-            }).ToList();
+                List<EventsModel> eventList = db.tblEvents.Select(x => new EventsModel
+                {
+                    EventID = x.EventID,
+                    EventName = x.EventName,
+                    DateOfEvent = x.DateOfEvent,
+                    Details = x.Details
+                }).ToList();
 
-            ViewBag.EventList = eventList;
-            return View();
+                ViewBag.EventList = eventList;
+                return View();
+            }
+            return View("Login");
         }
         //function to edit any event
         public ActionResult EditEvent(int EventID)
@@ -159,17 +165,21 @@ namespace IdeaLab.Controllers
         //function  to view registrations for an event
         public ActionResult ViewEventRegistrations(EventRegistrationModel model)
         {
-            List<EventRegistrationModel> eventRegList = db.tblEventRegistrations.Select(x => new EventRegistrationModel
+            if (Convert.ToInt32(Session["LoggedIn"]) == 1)
             {
-                RegistrationID = x.RegistrationID,
-                EventName = x.tblEvent.EventName,
-                Name = x.Name,
-                ContactNumber = x.ContactNumber,
-                EmailID = x.EmailID
-            }).ToList();
+                List<EventRegistrationModel> eventRegList = db.tblEventRegistrations.Select(x => new EventRegistrationModel
+                {
+                    RegistrationID = x.RegistrationID,
+                    EventName = x.tblEvent.EventName,
+                    Name = x.Name,
+                    ContactNumber = x.ContactNumber,
+                    EmailID = x.EmailID
+                }).ToList();
 
-            ViewBag.EventRegList = eventRegList;
-            return View();
+                ViewBag.EventRegList = eventRegList;
+                return View();
+            }
+            return RedirectToAction("Login");
         }
         //function to delete registration for an event
         public JsonResult DeleteEventReg(int RegistrationID)
@@ -189,19 +199,23 @@ namespace IdeaLab.Controllers
         //function to view ideas given by users
         public ActionResult ViewIdeas(UserModel model)
         {
-            List<UserModel> userList = db.tblUsers.Select(x => new UserModel
+            if (Convert.ToInt32(Session["LoggedIn"]) == 1)
             {
-                ID = x.ID,
-                Name = x.Name,
-                Batch = x.Batch,
-                Branch = x.tblBranch.Branch,
-                ContactNumber = x.ContactNumber,
-                Email = x.Email,
-                Idea = x.Idea
-            }).ToList();
+                List<UserModel> userList = db.tblUsers.Select(x => new UserModel
+                {
+                    ID = x.ID,
+                    Name = x.Name,
+                    Batch = x.Batch,
+                    Branch = x.tblBranch.Branch,
+                    ContactNumber = x.ContactNumber,
+                    Email = x.Email,
+                    Idea = x.Idea
+                }).ToList();
 
-            ViewBag.UserList = userList;
-            return View();
+                ViewBag.UserList = userList;
+                return View();
+            }
+            return RedirectToAction("Login");
         }
         //function to delete ideas given by users
         public JsonResult DeleteIdea(int ID)
@@ -217,6 +231,12 @@ namespace IdeaLab.Controllers
             db.SaveChanges();
 
             return Json(result, JsonRequestBehavior.AllowGet);
-        }       
+        }
+        public ActionResult Logout()
+        {
+            Session["LoggedIn"] = null;
+            return RedirectToAction("Login");
+
+        }
     }
 }

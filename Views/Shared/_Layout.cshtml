@@ -6,21 +6,47 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="~/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="~/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <title>Idea Lab- Admin Panel</title>
 </head>
 <body>
     <nav class="white" role="navigation">
-    <div class="nav-wrapper container ">
-        <a id="logo-container" href="#" class="brand-logo"><img src="~/logo.png" style="height: 10vh; width: 32vh; "></a>
-        <h5 class="black-text right hide-on-med-and-down ">
-            ADMIN PANEL
-        </h5>
+    @*<nav class="nav-extended white" role="navigation">*@
+        <div class="nav-wrapper container ">
+            <a id="logo-container" href="#" class="brand-logo"><img src="~/logo.png" style="height: 10vh; width: 32vh; "></a>
+            <h5 class="black-text right hide-on-med-and-down ">
+                ADMIN PANEL
+            </h5>
 
-        <div id="nav-mobile" class="side-nav">
-            <h4 class="black-text">ADMIN PANEL</h4>
+            @*<div id="nav-mobile" class="side-nav">
+                <h4 class="black-text">ADMIN PANEL</h4>
+            </div>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>*@
         </div>
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-</nav>
+        </nav>
+        @if (Session["LoggedIn"] != null)
+        {
+            <div class="navbar-fixed">
+                <nav class="white" role="navigation">
+                    <div class="nav-wrapper container">
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="/Admin/Index" class="grey-text text-darken-4">Add Events</a></li>
+                            <li><a href="/Admin/ViewEvents" class="grey-text text-darken-4">Events</a></li>
+                            <li class="tab"><a href="/Admin/ViewEventRegistrations" class="grey-text text-darken-4">Event Registrations</a></li>
+                            <li class="tab"><a href="/Admin/ViewIdeas" class="grey-text text-darken-4">Ideas</a></li>
+                            <li class="tab"><a href="/Admin/Logout" class="blue-text">Logout</a></li>
+                        </ul>
+                        <ul id="nav-mobile" class="side-nav">
+                            <li><a href="/Admin/Index">Add Events</a></li>
+                            <li><a href="/Admin/ViewEvents">Events</a></li>
+                            <li><a href="/Admin/ViewEventRegistrations">Event Registrations</a></li>
+                            <li><a href="/Admin/ViewIdeas">Ideas</a></li>
+                            <li><a href="/Admin/Logout" class="blue-text">Logout</a></li>
+                        </ul>
+                        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                    </div>
+                </nav>
+            </div>
+        }
     <div>
         @RenderBody()
     </div>
