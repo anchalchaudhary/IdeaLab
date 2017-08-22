@@ -48,7 +48,12 @@ namespace IdeaLab.Controllers
                 db.tblUsers.Add(objtblUser);
 
                 db.SaveChanges();
+
+                TempData["Successful"] = "<script>alert('Your response has been recorded');</script>";
             }
+            else
+                TempData["Unsuccessful"] = "<script>alert('There was some error. Try again.');</script>";
+
             return RedirectToAction("Index");
         }
         [HttpPost]
@@ -63,16 +68,21 @@ namespace IdeaLab.Controllers
             }).ToList();
 
             ViewBag.EventList = eventList;
+            if (model != null)
+            {
+                tblEventRegistration objtblEventRegistration = new tblEventRegistration();
+                objtblEventRegistration.EventID = EventID;
+                objtblEventRegistration.Name = model.eventregistration.Name;
+                objtblEventRegistration.ContactNumber = model.eventregistration.ContactNumber;
+                objtblEventRegistration.EmailID = model.eventregistration.EmailID;
 
-            tblEventRegistration objtblEventRegistration = new tblEventRegistration();
-            objtblEventRegistration.EventID = EventID;
-            objtblEventRegistration.Name = model.eventregistration.Name;
-            objtblEventRegistration.ContactNumber = model.eventregistration.ContactNumber;
-            objtblEventRegistration.EmailID = model.eventregistration.EmailID;
+                db.tblEventRegistrations.Add(objtblEventRegistration);
 
-            db.tblEventRegistrations.Add(objtblEventRegistration);
-
-            db.SaveChanges();
+                db.SaveChanges();
+                TempData["Registered"] = "<script>alert('You have been registered.');</script>";
+            }
+            else
+                TempData["Unregistered"] = "<script>alert('There was some error. Try again.');</script>";
 
             return RedirectToAction("Index");
         }
