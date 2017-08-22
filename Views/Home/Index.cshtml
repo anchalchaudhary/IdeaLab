@@ -25,10 +25,12 @@
             <a id="logo-container" href="#" class="brand-logo"><img src="~/logo.png" style="height: 10vh; width: 32vh; "></a>
             <ul class="right hide-on-med-and-down ">
                 <li><a href="#home" class="grey-text text-darken-4">Home</a></li>
-                <li><a href="#video" class="grey-text text-darken-4">Latest Videos</a></li>
+                <li><a href="#video" class="grey-text text-darken-4">Trending</a></li>
                 <li><a href="#event" class="grey-text text-darken-4">Events</a></li>
                 <li><a href="#about" class="grey-text text-darken-4">About</a></li>
+                <li class="brand-logo"><img src="~/AKGEC.png" style="height: 9vh; width: 9vh; "></li>
             </ul>
+
 
             <ul id="nav-mobile" class="side-nav">
                 <li><a href="#home">Home</a></li>
@@ -44,7 +46,7 @@
         <div class="section no-pad-bot">
             <div class="container">
                 <br><br>
-                <h2 class="header center white-text light">Got an Idea? <br /> We got you covered!</h2>
+                <h2 class="header center white-text light">Are you a #Startup? <br /> We got you covered!</h2>
                 <div class="row center">
                     <a href="#regmodal" class="modal-trigger btn-large waves-effect waves-light red lighten-1">Get Started</a>
                 </div>
@@ -63,37 +65,37 @@
 
             @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { style = "padding: 0 5vw;" }))
             {
-            <div class="input-field">
-                @Html.TextBoxFor(model => model.user.Name, new { @id = "name", @class = "validate" })
-                <label for="name">Name</label>
-                @Html.ValidationMessageFor(model => model.user.Name, "", new { @class = "error" })
-            </div>
-            <div class="input-field">
-                @Html.TextBoxFor(model => model.user.Email, new { @id = "email", @class = "validate" })
-                <label for="email">Email</label>
-                @Html.ValidationMessageFor(model => model.user.Email, "", new { @class = "error" })
-            </div>
-            <div class="input-field">
-                @Html.TextBoxFor(model => model.user.ContactNumber, new { @id = "contactNumber", @class = "validate" })
-                <label for="contactNumber">Contact Number</label>
-                @Html.ValidationMessageFor(model => model.user.ContactNumber, "", new { @class = "error" })
-            </div>
-            <div class="input-field">
-                @Html.TextBoxFor(model => model.user.Batch, new { @id = "batch", @class = "validate" })
-                <label for="batch">Batch</label>
-                @Html.ValidationMessageFor(model => model.user.Batch, "", new { @class = "error" })
-            </div>
-            <div>
-                @Html.DropDownListFor(model => model.user.BranchID, ViewBag.BranchList as SelectList, "--Select Branch--", new { @id = "branch", @class = "input-field dropdown-button btn grey lighten-4 black-text" })
-                @Html.ValidationMessageFor(model => model.user.BranchID, "", new { @class = "error" })
-            </div>
-            <div class="input-field">
-                @Html.TextAreaFor(model => model.user.Idea, new { @id = "textarea1", @class = "materialize-textarea" })
-                <label for="textarea1">Enter Your Idea in 200 words....</label>
-                @Html.ValidationMessageFor(model => model.user.Idea, "", new { @class = "error" })
-            </div>
-            <br />
-            <input type="submit" value="Submit" class="waves-effect waves-light btn red center" style="display: block;" />
+                <div class="input-field">
+                    @Html.TextBoxFor(model => model.user.Name, new { @id = "name", @class = "validate" })
+                    <label for="name">Name</label>
+                    @Html.ValidationMessageFor(model => model.user.Name, "", new { @class = "error" })
+                </div>
+                <div class="input-field">
+                    @Html.TextBoxFor(model => model.user.Email, new { @id = "email", @class = "validate" })
+                    <label for="email">Email</label>
+                    @Html.ValidationMessageFor(model => model.user.Email, "", new { @class = "error" })
+                </div>
+                <div class="input-field">
+                    @Html.TextBoxFor(model => model.user.ContactNumber, new { @id = "contactNumber", @class = "validate" })
+                    <label for="contactNumber">Contact Number</label>
+                    @Html.ValidationMessageFor(model => model.user.ContactNumber, "", new { @class = "error" })
+                </div>
+                <div class="input-field">
+                    @Html.TextBoxFor(model => model.user.Batch, new { @id = "batch", @class = "validate" })
+                    <label for="batch">Batch</label>
+                    @Html.ValidationMessageFor(model => model.user.Batch, "", new { @class = "error" })
+                </div>
+                <div>
+                    @Html.DropDownListFor(model => model.user.BranchID, ViewBag.BranchList as SelectList, "--Select Branch--", new { @id = "branch", @class = "input-field dropdown-button btn grey lighten-4 black-text" })
+                    @Html.ValidationMessageFor(model => model.user.BranchID, "", new { @class = "error" })
+                </div>
+                <div class="input-field">
+                    @Html.TextAreaFor(model => model.user.Idea, new { @id = "textarea1", @class = "materialize-textarea" })
+                    <label for="textarea1">Enter Your Idea in 200 words....</label>
+                    @Html.ValidationMessageFor(model => model.user.Idea, "", new { @class = "error" })
+                </div>
+                <br />
+                <input type="submit" value="Submit" class="waves-effect waves-light btn red center" style="display: block;" />
 
             }
         </div>
@@ -102,7 +104,7 @@
     </div>
     <div class="container" id="videos">
         <div class="section">
-            <h4 class="header center">Latest Videos</h4>
+            <h4 class="header center">#Trending</h4>
             <div class="row">
                 <div class="col s12 m6">
                     <iframe style="width: 100%; height: 40vh;" src="https://www.youtube.com/embed/bC0hlK7WGcM" frameborder="0" allowfullscreen></iframe>
@@ -129,7 +131,7 @@
                 </div>
             </div>
         </div>
-        <div class="parallax"><img src="~/background2.png" alt="Unsplashed background img 2"></div>
+        <div class="parallax"><img src="~/idea.jpeg" alt="Unsplashed background img 2"></div>
     </div>
 
 
@@ -142,7 +144,7 @@
                     <div class="col s12 m4">
                         <div class="card">
                             <div class="card-image">
-                                <img class="resizeme" src="@Url.Action("RetrieveImage", "Home", new { @item.ImageID })" alt="Event Image" height="200" width="400"/>
+                                <img class="resizeme" src="@Url.Action("RetrieveImage", "Home", new { @item.ImageID })" alt="Event Image" height="200" width="400" />
                                 <span class="card-title">@item.EventName</span>
                                 <a href="#eventmodal_@item.EventID" class="modal-trigger btn-floating halfway-fab waves-effect waves-light red" onclick="OpenDetails(@item.EventID)"><i class="material-icons">add</i></a>
                             </div>
@@ -208,7 +210,17 @@
                 <div class="col s12 center">
                     <h3><i class="mdi-content-send brown-text"></i></h3>
                     <h4>About Us</h4>
-                    <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+                    <p class="left-align light">
+                        A lot can happen in a year: New technologies emerge, old assumptions change. Today’s fresh idea is tomorrow’s revolution.
+
+                        <b>Small Ideas Great companies.</b>
+
+                        We believe that entrepreneurship can unlock human potential and make the world a better place.
+
+                        We are working to find out great teams which are ready to innovate solutions for problems in the world that have technology solutions and test many ideas in parallel.
+
+                        When one shows great promise, we recruit a great team, spin it off into a company, and help them grow a successful business.
+                    </p>
                 </div>
             </div>
         </div>
@@ -221,26 +233,6 @@
                 <div class="col l6 s12">
                     <h5 class="white-text">Idea Lab</h5>
                     <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">Settings</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Link 1</a></li>
-                        <li><a class="white-text" href="#!">Link 2</a></li>
-                        <li><a class="white-text" href="#!">Link 3</a></li>
-                        <li><a class="white-text" href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">Connect</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Link 1</a></li>
-                        <li><a class="white-text" href="#!">Link 2</a></li>
-                        <li><a class="white-text" href="#!">Link 3</a></li>
-                        <li><a class="white-text" href="#!">Link 4</a></li>
-                    </ul>
                 </div>
             </div>
         </div>

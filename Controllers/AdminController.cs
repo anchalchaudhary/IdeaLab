@@ -12,9 +12,27 @@ namespace IdeaLab.Controllers
     {
         DBIdeaLabEntities db = new DBIdeaLabEntities();
         // GET: Admin
-        public ActionResult Index()
+        public ActionResult Login()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Login(LoginModel model)
+        {
+            if(model.LoginID == "admin" && model.Password == "admin123")
+            {
+                Session["LoggedIn"] = "yes";
+                return View("Index");
+            }
+            return View();
+        }
+        public ActionResult Index()
+        {
+            if (Session["LoggedIn"].ToString() == "yes")
+            {
+                return View();
+            }
+            return View("Login");
         }
         [HttpPost]
         public ActionResult Index(EventsModel model)    //display items from database in view

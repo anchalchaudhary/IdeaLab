@@ -139,6 +139,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AKGEC.png" />
     <Content Include="background1.png" />
     <Content Include="background2.png" />
     <Content Include="background3.jpg" />
@@ -161,6 +162,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>IdeaLabModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="idea.jpeg" />
     <Content Include="IdeaLabModel.edmx.diagram">
       <DependentUpon>IdeaLabModel.edmx</DependentUpon>
     </Content>
@@ -230,6 +232,7 @@
     <Compile Include="Models\EventRegistrationModel.cs" />
     <Compile Include="Models\EventsModel.cs" />
     <Compile Include="Models\ImageStoreModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\WebsiteModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -265,6 +268,7 @@
     <Content Include="Views\Admin\EditEventPartial.cshtml" />
     <Content Include="Views\Admin\ViewEventRegistrations.cshtml" />
     <Content Include="Views\Admin\ViewIdeas.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

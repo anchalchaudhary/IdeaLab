@@ -1,0 +1,35 @@
+﻿@model IdeaLab.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="~/js/materialize.js"></script>
+<script src="~/js/init.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<style>
+    .error{
+        color:red;
+    }
+</style>
+<div class="row">
+    <div class="col m6 offset-m3">
+        @using (Html.BeginForm("Login", "Admin", FormMethod.Post, new { style = "padding: 0 5vw;" }))
+        {
+            <div class="input-field">
+                @Html.TextBoxFor(model => model.LoginID, new { @class = "form-control", @placeholder = "Your LoginID here..." })
+                @Html.ValidationMessageFor(model => model.LoginID, "", new { @class = "error" })
+            </div>
+
+            <div class="input-field">
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Your password here..." })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "error" })
+            </div>
+
+            <div class="input-field">
+                <input type="submit" class="waves-effect waves-light btn red center" value="LOGIN" />
+            </div>
+        }
+    </div>
+</div>
