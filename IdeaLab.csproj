@@ -171,6 +171,7 @@
     <Content Include="js\jquery.ae.image.resize.min.js" />
     <Content Include="js\materialize.js" />
     <Content Include="js\materialize.min.js" />
+    <Content Include="js\smooth-scroll.js" />
     <Content Include="LICENSE" />
     <Content Include="fonts\roboto\Roboto-Bold.woff" />
     <Content Include="fonts\roboto\Roboto-Bold.woff2" />
@@ -194,6 +195,7 @@
       <LastGenOutput>IdeaLabModel.cs</LastGenOutput>
     </Content>
     <Content Include="index.html" />
+    <Content Include="loader.svg" />
     <Content Include="logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

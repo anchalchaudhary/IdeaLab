@@ -18,12 +18,12 @@ namespace IdeaLab.Models
         [Required(ErrorMessage = "Enter Contact Number")]
         public string ContactNumber { get; set; }
         [Required(ErrorMessage = "Enter Batch")]
-        [RegularExpression(@"^([2][0]\d{2}[-][0-9]{2})", ErrorMessage = "Batch is not valid")]
+        [RegularExpression(@"^([2][0]\d{2}[-][0-9]{2})", ErrorMessage = "Batch must be of format YYYY-YY. ")]
         public string Batch { get; set; }
         [Required(ErrorMessage = "Select Branch")]
         public Nullable<int> BranchID { get; set; }
         [Required(ErrorMessage = "Enter Idea")]
-        [RegularExpression(@"^(.{1,200})", ErrorMessage = "Only 200 characters allowed")]
+        //[RegularExpression(@"^(.{1,200})", ErrorMessage = "Only 200 characters allowed")]
         public string Idea { get; set; }
 
         public string Branch { get; set; } //used to store branch name from tblBranches and display in dropdown

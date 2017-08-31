@@ -25,31 +25,30 @@
 @Html.Raw(TempData["Unregistered"])
 
 <body>
-    <nav class="white" role="navigation">
+    <nav class="white" role="navigation" style="position:fixed; z-index:1000;">
         <div class="nav-wrapper container ">
-            <a id="logo-container" href="#" class="brand-logo"><img src="~/logo.png" style="height: 10vh; width: 32vh; "></a>
+            <a id="logo-container" href="http://www.akgec.in/idealab" class="brand-logo"><img src="~/logo.png" style="height: 10vh; width: 32vh; "></a>
             <ul class="right hide-on-med-and-down ">
-                <li><a href="#home" class="grey-text text-darken-4">Home</a></li>
-                <li><a href="#video" class="grey-text text-darken-4">Trending</a></li>
+                <li><a href="#index-banner" class="grey-text text-darken-4">Home</a></li>
+                <li><a href="#videos" class="grey-text text-darken-4">Trending</a></li>
                 <li><a href="#event" class="grey-text text-darken-4">Events</a></li>
                 <li><a href="#about" class="grey-text text-darken-4">About</a></li>
-                <li class="brand-logo"><img src="~/AKGEC.png" style="height: 9vh; width: 9vh; "></li>
+                <li class="brand-logo"><img src="~/AKGEC.png" onclick="RedirecttoAKGEC();" style="height: 9vh; width: 9vh; "></li>
             </ul>
 
 
             <ul id="nav-mobile" class="side-nav">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#video">Latest Videos</a></li>
+                <li><a href="#index-banner">Home</a></li>
+                <li><a href="#videos">Trending</a></li>
                 <li><a href="#event">Events</a></li>
                 <li><a href="#about">About</a></li>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
     </nav>
-
     <div id="index-banner" class="parallax-container">
         <div class="section no-pad-bot">
-            <div class="container">
+            <div class="container" style="padding-top:8vh;">
                 <br><br>
                 <h2 class="header center white-text light">Are you a #Startup? <br /> We got you covered!</h2>
                 <div class="row center">
@@ -65,11 +64,17 @@
 
     <!-- Registration Modal Structure -->
     <div id="regmodal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" id="regmodalBody">
             <h4 class="center">SUBMIT YOUR IDEA</h4>
-
-            @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { style = "padding: 0 5vw;" }))
+            @using (Ajax.BeginForm("Register", "Home",
+                    new AjaxOptions
+                    {
+                        OnSuccess = "OnSuccessIdea",
+                        OnFailure = "OnFailureIdea",
+                        LoadingElementId = "progress"
+                    }, new { id = "myform", style = "padding: 0 5vw;" }))
             {
+            @*<form id="myform" , style="padding: 0 5vw;">*@
                 <div class="input-field">
                     @Html.TextBoxFor(model => model.user.Name, new { @id = "name", @class = "validate" })
                     <label for="name">Name</label>
@@ -87,7 +92,7 @@
                 </div>
                 <div class="input-field">
                     @Html.TextBoxFor(model => model.user.Batch, new { @id = "batch", @class = "validate" })
-                    <label for="batch">Batch</label>
+                    <label for="batch">Batch (yyyy-yy)</label>
                     @Html.ValidationMessageFor(model => model.user.Batch, "", new { @class = "error" })
                 </div>
                 <div>
@@ -98,15 +103,29 @@
                     @Html.TextAreaFor(model => model.user.Idea, new { @id = "textarea1", @class = "materialize-textarea" })
                     <label for="textarea1">Enter Your Idea in 200 words....</label>
                     @Html.ValidationMessageFor(model => model.user.Idea, "", new { @class = "error" })
+                    <div id="result" class="grey-text">
+                        Words left: <span id="wordCount">200</span>
+                    </div>
+                    <span id="lblError" class="error"></span>
                 </div>
                 <br />
-                <input type="submit" value="Submit" class="waves-effect waves-light btn red center" style="display: block;" />
-
+                @*<input type="submit" value="Submit" class="waves-effect waves-light btn red center" style="display: block;" />*@
+                <button id="btnSubmit" class="waves-effect waves-light btn red center" onclick="showloader();" style="width:100%;">Submit</button>
+            @*</form>*@
             }
+            <div class="modal-footer">
+            </div>
         </div>
-        <div class="modal-footer">
+    </div>    
+    <!--LOADER-->
+    <div id="process" class="modal">
+        <div class="modal-content center" style="padding: 0; height:15vh; width:15vw;">
+            <img src="~/loader.svg">
         </div>
     </div>
+
+
+
     <div class="container" id="videos">
         <div class="section">
             <h4 class="header center">#Trending</h4>
@@ -146,63 +165,63 @@
             <div class="row">
                 @foreach (var item in ViewBag.EventList)
                 {
-                    <div class="col s12 m4">
-                        <div class="card">
-                            <div class="card-image">
-                                <img class="resizeme" src="@Url.Action("RetrieveImage", "Home", new { @item.ImageID })" alt="Event Image" height="200" width="400" />
-                                <span class="card-title">@item.EventName</span>
-                                <a href="#eventmodal_@item.EventID" class="modal-trigger btn-floating halfway-fab waves-effect waves-light red" onclick="OpenDetails(@item.EventID)"><i class="material-icons">add</i></a>
-                            </div>
-                            <div class="card-content">
-                                <p>Date: @item.DateOfEvent.ToShortDateString()</p>
-                            </div>
+                <div class="col s12 m4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img class="resizeme" src="@Url.Action("RetrieveImage", "Home", new { @item.ImageID })" alt="Event Image" height="200" width="400" />
+                            <span class="card-title">@item.EventName</span>
+                            <a href="#eventmodal_@item.EventID" class="modal-trigger btn-floating halfway-fab waves-effect waves-light red" onclick="OpenDetails(@item.EventID)"><i class="material-icons">add</i></a>
+                        </div>
+                        <div class="card-content">
+                            <p>Date: @item.DateOfEvent.ToShortDateString()</p>
                         </div>
                     </div>
+                </div>
 
                 <!-- Modal 1 -->
-                    <div id="eventmodal_@item.EventID" class="modal">
-                        <div class="modal-content" style="padding: 0;">
-                            <div class="card" style="margin: 0;">
-                                <div class="card-image">
-                                    <img src="@Url.Action("RetrieveImage", "Home", new { @item.ImageID })" alt="Event Image" width="450" height="300" />
-                                    <span class="card-title">@item.EventName</span>
-                                </div>
-                                <div class="card-content">
-                                    <p>@item.Details</p>
-                                    <a href="#modal_@item.EventID" class="waves-effect waves-light btn red center" style="display: block; width: 80%; margin: 0 auto;" onclick="Event(@item.EventID)">Register</a>
-                                </div>
+                <div id="eventmodal_@item.EventID" class="modal">
+                    <div class="modal-content" style="padding: 0;">
+                        <div class="card" style="margin: 0;">
+                            <div class="card-image">
+                                <img src="@Url.Action("RetrieveImage", "Home", new { @item.ImageID })" alt="Event Image" width="450" height="300" />
+                                <span class="card-title">@item.EventName</span>
+                            </div>
+                            <div class="card-content">
+                                <p>@item.Details</p>
+                                <a href="#modal_@item.EventID" class="waves-effect waves-light btn red center" style="display: block; width: 80%; margin: 0 auto;" onclick="Event(@item.EventID)">Register</a>
                             </div>
                         </div>
                     </div>
+                </div>
 
                     <!-- Modal Structure -->
-                    <div id="modal_@item.EventID" class="modal">
-                        <div class="modal-content">
-                            <h4 class="center">REGISTER</h4>
-                            @using (Html.BeginForm("EventRegistration", "Home", new { EventID = @item.EventID }, FormMethod.Post, new { style = "padding: 0 5vw;" }))
+                <div id="modal_@item.EventID" class="modal">
+                    <div class="modal-content">
+                        <h4 class="center">REGISTER</h4>
+                        @using (Html.BeginForm("EventRegistration", "Home", new { EventID = @item.EventID }, FormMethod.Post, new { style = "padding: 0 5vw;" }))
                             {
-                                <div class="input-field">
-                                    @Html.TextBoxFor(model => model.eventregistration.Name, new { @id = "name", @class = "validate" })
-                                    <label for="name">Name</label>
-                                    @Html.ValidationMessageFor(model => model.eventregistration.Name, "", new { @class = "error" })
-                                </div>
-                                <div class="input-field">
-                                    @Html.TextBoxFor(model => model.eventregistration.EmailID, new { @id = "email", @class = "validate" })
-                                    <label for="email">Email</label>
-                                    @Html.ValidationMessageFor(model => model.eventregistration.EmailID, "", new { @class = "error" })
-                                </div>
-                                <div class="input-field">
-                                    @Html.TextBoxFor(model => model.eventregistration.ContactNumber, new { @id = "contactNumber", @class = "validate" })
-                                    <label for="contactNumber">Contact Number</label>
-                                    @Html.ValidationMessageFor(model => model.eventregistration.ContactNumber, "", new { @class = "error" })
-                                </div>
-                                <br />
-                                <input type="submit" value="Submit" class="waves-effect waves-light btn red center" style="display: block;" />
+                        <div class="input-field">
+                            @Html.TextBoxFor(model => model.eventregistration.Name, new { @id = "name", @class = "validate" })
+                            <label for="name">Name</label>
+                            @Html.ValidationMessageFor(model => model.eventregistration.Name, "", new { @class = "error" })
+                        </div>
+                        <div class="input-field">
+                            @Html.TextBoxFor(model => model.eventregistration.EmailID, new { @id = "email", @class = "validate" })
+                            <label for="email">Email</label>
+                            @Html.ValidationMessageFor(model => model.eventregistration.EmailID, "", new { @class = "error" })
+                        </div>
+                        <div class="input-field">
+                            @Html.TextBoxFor(model => model.eventregistration.ContactNumber, new { @id = "contactNumber", @class = "validate" })
+                            <label for="contactNumber">Contact Number</label>
+                            @Html.ValidationMessageFor(model => model.eventregistration.ContactNumber, "", new { @class = "error" })
+                        </div>
+                        <br />
+                        <input type="submit" value="Submit" class="waves-effect waves-light btn red center" style="display: block;" />
                             }
-                        </div>
-                        <div class="modal-footer">
-                        </div>
                     </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
                 }
 
             </div>
@@ -232,20 +251,16 @@
     </div>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3500.4669944363836!2d77.49981551457049!3d28.675673982400845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cee2391c13fd1%3A0x5397410d18100e43!2sAjay+Kumar+Garg+Engineering+College!5e0!3m2!1sen!2sin!4v1501609273760" width="100%" frameborder="0" style="border:0; height: 30vh;" allowfullscreen></iframe>
 
-    <footer class="page-footer grey darken-3">
+    <footer class="page-footer grey lighten-4">
         <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Idea Lab</h5>
-                    <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright grey darken-4 ">
-            <div class="container ">
-                Powered By <a class="white-text" href="http://www.silive.in">Software Incubator</a>
-                <img src="~/SIlogo.png" width="20px" height="20px" style="float: right;">
-            </div>
+
+            <h5 class="center black-text" style="letter-spacing: 2px;">
+                POWERED BY <a href="http://www.silive.in">
+                    SOFTWARE INCUBATOR
+                    <img src="~/SIlogo.png" style="height: 4vh; width:3vh; padding-top:0.5vh;" class="img-responsive">
+                </a>
+            </h5>
+            <br />
         </div>
     </footer>
 
@@ -256,6 +271,7 @@
     <script src="~/js/init.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/smooth-scroll.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.modal').modal();
@@ -271,11 +287,84 @@
             $("#eventmodal_" + eventID).modal('close');
             $("#modal_" + eventID).modal('open');
         }
+        var RedirecttoAKGEC = function () {
+            window.location = "http://www.akgec.in";
+        }
+        counter = function () {
+            var value = $('#textarea1').val();
 
-        //$(function () {
-        //    $(".resizeme").aeImageResize({ height: 250, width: 250 });
-        //});
+            if (value.length == 0) {
+                $('#wordCount').html(200);
+                return;
+            }
+            var regex = /\s+/gi;
+            var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+
+            $('#wordCount').html(200 - wordCount);
+
+            if (wordCount > 200) {
+                $('#wordCount').html(0);
+                $('#lblError').html("Only 200 words allowed.");
+                $('#btnSubmit').prop('disabled', true);
+                return;
+            }
+
+            if (wordCount <= 200) {
+                $('#lblError').html("");
+                $('#btnSubmit').prop('disabled', false);
+            }
+        }
+        $(document).ready(function () {
+            $('#textarea1').change(counter);
+            $('#textarea1').keydown(counter);
+            $('#textarea1').keypress(counter);
+            $('#textarea1').keyup(counter);
+            $('#textarea1').blur(counter);
+            $('#textarea1').focus(counter);
+        });
+
+        var scroll = new SmoothScroll('a[href*="#"]');
     </script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
+    <script type="text/javascript">
+
+        var showloader = function () {
+            debugger
+           // $('#myform').submit(function () {
+                if ($('#myform').valid()) {
+                    $("#regmodal").modal('close');
+                    $("#process").show();
+                }
+            //});
+        }
+        function OnSuccessIdea(response) {
+            if (response == "success") {
+                $("#process").hide();
+                // $("#regmodalBody").innerHTML = "Successfully Registered";
+                $('#regmodalBody').html("Successfully Registered");
+                $("#regmodal").modal('open');
+                setTimeout(function () {
+                    window.location = "Index";
+                }, 5000);
+            }
+            else {
+                $("#process").hide();
+                $("#regmodalBody").html("Try Again.");
+                $("#regmodal").modal('open');
+                setTimeout(function () {
+                    window.location = "Index";
+                }, 5000);
+            }
+        }
+        function OnFailureIdea(response) {
+            $("#process").hide();
+            $("#regmodalBody").html("Try Again.");
+            $("#regmodal").modal('open');
+            setTimeout(function () {
+                window.location = "Index";
+            }, 5000);
+        }
+    </script>
 </body>
 </html>

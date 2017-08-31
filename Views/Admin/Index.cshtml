@@ -35,7 +35,7 @@
                 <label for="details">Details of Event</label>
                 @Html.ValidationMessageFor(model => model.Details, "", new { @class = "error" })
             </div>
-            <div class="input-field">
+            <div>
                 <input type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
             </div>
             <br />

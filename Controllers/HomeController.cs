@@ -33,8 +33,9 @@ namespace IdeaLab.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(WebsiteModel model)    //for user to register and give his idea
+        public JsonResult Register(WebsiteModel model)    //for user to register and give his idea
         {
+            System.Threading.Thread.Sleep(1000);
             if (ModelState.IsValid)
             {
                 tblUser objtblUser = new tblUser();
@@ -49,12 +50,16 @@ namespace IdeaLab.Controllers
 
                 db.SaveChanges();
 
-                TempData["Successful"] = "<script>alert('Your response has been recorded');</script>";
+                //TempData["Successful"] = "<script>alert('Your response has been recorded');</script>";
+                TempData["Successful"] = "done";
+                return Json("success");
             }
             else
                 TempData["Unsuccessful"] = "<script>alert('There was some error. Try again.');</script>";
 
-            return RedirectToAction("Index");
+            return Json("failure");
+
+           // return RedirectToAction("Index");
         }
         [HttpPost]
         public ActionResult EventRegistration(WebsiteModel model, int EventID)  //for user to register for an upcoming event
