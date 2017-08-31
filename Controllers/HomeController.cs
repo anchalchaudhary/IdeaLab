@@ -51,18 +51,16 @@ namespace IdeaLab.Controllers
                 db.SaveChanges();
 
                 //TempData["Successful"] = "<script>alert('Your response has been recorded');</script>";
-                TempData["Successful"] = "done";
+                //TempData["Successful"] = "done";
                 return Json("success");
             }
             else
-                TempData["Unsuccessful"] = "<script>alert('There was some error. Try again.');</script>";
-
-            return Json("failure");
+                return Json("failure");
 
            // return RedirectToAction("Index");
         }
         [HttpPost]
-        public ActionResult EventRegistration(WebsiteModel model, int EventID)  //for user to register for an upcoming event
+        public JsonResult EventRegistration(WebsiteModel model, int EventID)  //for user to register for an upcoming event
         {
             List<EventsModel> eventList = db.tblEvents.Select(x => new EventsModel
             {
@@ -71,6 +69,7 @@ namespace IdeaLab.Controllers
                 DateOfEvent = x.DateOfEvent,
                 Details = x.Details
             }).ToList();
+            System.Threading.Thread.Sleep(1000);
 
             ViewBag.EventList = eventList;
             if (model != null)
@@ -84,12 +83,12 @@ namespace IdeaLab.Controllers
                 db.tblEventRegistrations.Add(objtblEventRegistration);
 
                 db.SaveChanges();
-                TempData["Registered"] = "<script>alert('You have been registered.');</script>";
+                //TempData["Registered"] = "<script>alert('You have been registered.');</script>";
+
+                return Json("success");
             }
             else
-                TempData["Unregistered"] = "<script>alert('There was some error. Try again.');</script>";
-
-            return RedirectToAction("Index");
+                return Json("failure");
         }
 
         public FileContentResult RetrieveImage(int ImageID) //display image of event by accessing it from backend
