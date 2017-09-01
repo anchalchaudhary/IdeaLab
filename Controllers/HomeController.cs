@@ -14,6 +14,14 @@ namespace IdeaLab.Controllers
         {
             Session["LoggedIn"] = null;
 
+            //List of BatchStart
+            //List<SelectListItem> batchstartList = new List<SelectListItem>();
+            //batchstartList.Add(new SelectListItem { Text = "2014", Value = "2014" });
+            //batchstartList.Add(new SelectListItem { Text = "2015", Value = "2015" });
+            //batchstartList.Add(new SelectListItem { Text = "2016", Value = "2016" });
+            //batchstartList.Add(new SelectListItem { Text = "2017", Value = "2017" });
+            //ViewBag.BatchStart = batchstartList;
+
             //List of Branches
             List<tblBranch> list = db.tblBranches.ToList();
             ViewBag.BranchList = new SelectList(list, "BranchID", "Branch");

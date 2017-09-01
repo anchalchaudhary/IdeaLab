@@ -20,9 +20,9 @@
     </style>
 </head>
 @*@Html.Raw(TempData["Successful"])
-@Html.Raw(TempData["Unsuccessful"])
-@Html.Raw(TempData["Registered"])
-@Html.Raw(TempData["Unregistered"])*@
+    @Html.Raw(TempData["Unsuccessful"])
+    @Html.Raw(TempData["Registered"])
+    @Html.Raw(TempData["Unregistered"])*@
 
 <body>
     <nav class="white" role="navigation" style="position:fixed; z-index:1000;">
@@ -52,7 +52,7 @@
                 <br><br>
                 <h2 class="header center white-text light">Are you a #Startup? <br /> We got you covered!</h2>
                 <div class="row center">
-                    <a href="#regmodal" class="modal-trigger btn-large waves-effect waves-light red lighten-1">Get Started</a>
+                    <a href="#regmodal" class="modal-trigger btn-large waves-effect waves-light red lighten-1" onclick="launchmodal();">Get Started</a>
                 </div>
                 <br><br>
 
@@ -91,10 +91,11 @@
                     @Html.ValidationMessageFor(model => model.user.ContactNumber, "", new { @class = "error" })
                 </div>
                 <div class="input-field">
-                    @Html.TextBoxFor(model => model.user.Batch, new { @id = "batch", @class = "validate" })
-                    <label for="batch">Batch (yyyy-yy)</label>
-                    @Html.ValidationMessageFor(model => model.user.Batch, "", new { @class = "error" })
-                </div>
+                        @Html.TextBoxFor(model => model.user.Batch, new { @id = "batch", @class = "validate", @onchange = "checkBatch();" })
+                        <label for="batch">Batch (yyyy-yy)</label>
+                        @Html.ValidationMessageFor(model => model.user.Batch, "", new { @class = "error" })
+                    <div id="invalidBatch" class="error" style="display:none"></div>
+                    </div>
                 <div>
                     @Html.DropDownListFor(model => model.user.BranchID, ViewBag.BranchList as SelectList, "--Select Branch--", new { @id = "branch", @class = "input-field dropdown-button btn grey lighten-4 black-text" })
                     @Html.ValidationMessageFor(model => model.user.BranchID, "", new { @class = "error" })
@@ -109,18 +110,18 @@
                     <span id="lblError" class="error"></span>
                 </div>
                 <br />
-                @*<input type="submit" value="Submit" class="waves-effect waves-light btn red center" style="display: block;" />*@
-                <button id="btnSubmit" class="waves-effect waves-light btn red center" onclick="showloader();" style="width:100%;">Submit</button>
-                @*</form>*@
+                    @*<input type="submit" value="Submit" class="waves-effect waves-light btn red center" style="display: block;" />*@
+                    <button id="btnSubmit" class="waves-effect waves-light btn red center" onclick="showloader();" style="width:100%;">Submit</button>
+                    @*</form>*@
             }
             <div class="modal-footer">
             </div>
         </div>
     </div>
     <!--LOADER-->
-    <div id="process" class="modal">
-        <div class="modal-content center" style="padding: 0; height:15vh; width:15vw;">
-            <img src="~/loader.svg">
+    <div id="process" class="modal transparent" style="height:50vh; width:50vw; box-shadow:none;">
+        <div class="modal-content" style="height:150px; width:150px;">
+            <img src="~/loader.svg" class="center">
         </div>
     </div>
 
@@ -205,8 +206,7 @@
                                 OnSuccess = "OnSuccessEvent",
                                 OnFailure = "OnFailureEvent",
                                 LoadingElementId = "progress"
-                            },
-                                new { id = "eventform", style = "padding: 0 5vw;" }))
+                            }, new { id = "eventform", style = "padding: 0 5vw;" }))
                             {
                                 <div class="input-field">
                                     @Html.TextBoxFor(model => model.eventregistration.Name, new { @id = "name", @class = "validate" })
@@ -224,7 +224,7 @@
                                     @Html.ValidationMessageFor(model => model.eventregistration.ContactNumber, "", new { @class = "error" })
                                 </div>
                                 <br />
-                                <button class="waves-effect waves-light btn red center" onclick="showloaderEvent(@item.EventID);" style="width:100%;">Submit</button>
+                                <button class="waves-effect waves-light btn red center" onclick="showEventLoader(@item.EventID);" style="width:100%;">Submit</button>
                             }
                         </div>
                         <div class="modal-footer">
@@ -235,7 +235,7 @@
             </div>
         </div>
     </div>
-    <div id="processevent" class="modal">
+    <div id="processevent" class="modal" style="margin-left:5%;">
         <div class="modal-content center" style="padding: 0; height:15vh; width:15vw;">
             <img src="~/loader.svg">
         </div>
@@ -335,11 +335,15 @@
             $('#textarea1').focus(counter);
         });
 
+
         var scroll = new SmoothScroll('a[href*="#"]');
     </script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
     <script type="text/javascript">
+        var launchmodal = function () {
+            $("#regmodal").modal('open');
+        }
 
         var showloader = function () {
             //debugger
@@ -353,11 +357,10 @@
         function OnSuccessIdea(response) {
             if (response == "success") {
                 $("#process").hide();
-                // $("#regmodalBody").innerHTML = "Successfully Registered";
                 $('#regmodalBody').html("Successfully Registered");
                 $("#regmodal").modal('open');
                 setTimeout(function () {
-                    window.location = "Index";
+                    window.location.reload();
                 }, 5000);
             }
             else {
@@ -365,7 +368,7 @@
                 $("#regmodalBody").html("Try Again.");
                 $("#regmodal").modal('open');
                 setTimeout(function () {
-                    window.location = "Index";
+                    window.location.reload();
                 }, 5000);
             }
         }
@@ -374,28 +377,37 @@
             $("#regmodalBody").html("Try Again.");
             $("#regmodal").modal('open');
             setTimeout(function () {
-                window.location = "Index";
+                window.location.reload();
             }, 5000);
         }
 
-        var showloaderEvent = function (EventID) {
-            debugger
+
+        var showEventLoader = function(EventID)
+        {
             var eventID = EventID.toString();
-            var check=$('#eventform').valid();
-            if ($('#eventform').valid()) 
+            var check = $("#eventform").valid();
+            if(check)
             {
                 $("#modal_" + eventID).modal('close');
                 $("#process").show();
             }
         }
+        //var showloaderEvent = function (EventID) {
+        //    debugger
+        //    var eventID = EventID.toString();
+        //    var check = $('#eventform').valid();
+        //    if ($("#eventform").valid()) {
+        //        $("#modal_" + eventID).modal('close');
+        //        $("#process").show();
+        //    }
+        //}
         function OnSuccessEvent(response) {
             if (response == "success") {
                 $("#process").hide();
-                // $("#regmodalBody").innerHTML = "Successfully Registered";
                 $('#regmodalBody').html("Successfully Registered");
                 $("#regmodal").modal('open');
                 setTimeout(function () {
-                    window.location = "Index";
+                    window.location.reload();
                 }, 5000);
             }
             else {
@@ -403,7 +415,7 @@
                 $("#regmodalBody").html("Try Again.");
                 $("#regmodal").modal('open');
                 setTimeout(function () {
-                    window.location = "Index";
+                    window.location.reload();
                 }, 5000);
             }
         }
@@ -412,10 +424,33 @@
             $("#regmodalBody").html("Try Again.");
             $("#regmodal").modal('open');
             setTimeout(function () {
-                window.location = "Index";
+                window.location.reload();
             }, 5000);
         }
 
+        var checkBatch = function () {
+            debugger
+            var batch = document.getElementById("batch").value;
+            console.log(batch.charAt[2]);
+            if(batch.length==7)
+            {
+                debugger
+                var start = batch.charAt(2) +""+ batch.charAt(3);
+                var startBatch = Number(start);
+                var end = batch.charAt(5) + batch.charAt(6);
+                var endBatch = Number(end);
+                if(startBatch>=endBatch)
+                {
+                    $("#invalidBatch").html("Invalid Batch");
+                    $("#invalidBatch").show();
+                    $('#btnSubmit').prop('disabled', true);
+                }
+                else
+                {
+                    $("#invalidBatch").hide();
+                }
+            }
+        }
 
     </script>
 </body>
