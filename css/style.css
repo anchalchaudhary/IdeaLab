@@ -18,7 +18,9 @@ p {
 .button-collapse {
   color: #26a69a;
 }
-
+.modal-overlay{
+    background-color: rgba(0,0,0,0.5);
+}
 .parallax-container {
   min-height: 380px;
   line-height: 0;

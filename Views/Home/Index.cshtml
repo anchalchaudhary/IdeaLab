@@ -12,17 +12,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="~/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="~/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    @*<script src="~/js/jquery.ae.image.resize.js"></script>*@
     <style>
         .error {
             color: red;
         }
     </style>
 </head>
-@*@Html.Raw(TempData["Successful"])
-    @Html.Raw(TempData["Unsuccessful"])
-    @Html.Raw(TempData["Registered"])
-    @Html.Raw(TempData["Unregistered"])*@
 
 <body>
     <nav class="white" role="navigation" style="position:fixed; z-index:1000;">
@@ -74,7 +69,6 @@
                         LoadingElementId = "progress"
                     }, new { id = "myform", style = "padding: 0 5vw;" }))
             {
-                @*<form id="myform" , style="padding: 0 5vw;">*@
                 <div class="input-field">
                     @Html.TextBoxFor(model => model.user.Name, new { @id = "name", @class = "validate" })
                     <label for="name">Name</label>
@@ -110,23 +104,21 @@
                     <span id="lblError" class="error"></span>
                 </div>
                 <br />
-                    @*<input type="submit" value="Submit" class="waves-effect waves-light btn red center" style="display: block;" />*@
                     <button id="btnSubmit" class="waves-effect waves-light btn red center" onclick="showloader();" style="width:100%;">Submit</button>
-                    @*</form>*@
             }
             <div class="modal-footer">
             </div>
         </div>
     </div>
     <!--LOADER-->
-    <div id="process" class="modal transparent" style="height:50vh; width:50vw; box-shadow:none;">
+    <div id="process" class="modal modal-overlay" style="height:30vh; width:30vw; box-shadow:none;">
         <div class="modal-content" style="height:150px; width:150px;">
             <img src="~/loader.svg" class="center">
         </div>
     </div>
 
 
-
+<!--Videos-->
     <div class="container" id="videos">
         <div class="section">
             <h4 class="header center">#Trending</h4>
@@ -159,7 +151,7 @@
         <div class="parallax"><img src="~/idea.jpeg" alt="Unsplashed background img 2"></div>
     </div>
 
-
+<!--Events-->
     <div class="container" id="event">
         <div class="section">
             <h4 class="header center">Events</h4>
@@ -195,12 +187,11 @@
                         </div>
                     </div>
 
-                    <!-- Modal Structure -->
+                    <!-- Modal Structure for Registration for Event-->
                     <div id="modal_@item.EventID" class="modal">
                         <div class="modal-content">
                             <h4 class="center">REGISTER</h4>
-                            @*@using (Html.BeginForm("EventRegistration", "Home", new { EventID = @item.EventID }, FormMethod.Post, new { style = "padding: 0 5vw;" }))
-                                {*@
+                            
                             @using (Ajax.BeginForm("EventRegistration", "Home", new { EventID = @item.EventID }, new AjaxOptions
                             {
                                 OnSuccess = "OnSuccessEvent",
@@ -288,8 +279,7 @@
         $(document).ready(function () {
             $('.modal').modal();
         });
-    </script>
-    <script>
+
         var OpenDetails = function (EventID) {
             var eventID = EventID.toString();
             $("#eventmodal_" + eventID).modal('open');
@@ -346,13 +336,10 @@
         }
 
         var showloader = function () {
-            //debugger
-            // $('#myform').submit(function () {
             if ($('#myform').valid()) {
                 $("#regmodal").modal('close');
                 $("#process").show();
             }
-            //});
         }
         function OnSuccessIdea(response) {
             if (response == "success") {
@@ -392,15 +379,6 @@
                 $("#process").show();
             }
         }
-        //var showloaderEvent = function (EventID) {
-        //    debugger
-        //    var eventID = EventID.toString();
-        //    var check = $('#eventform').valid();
-        //    if ($("#eventform").valid()) {
-        //        $("#modal_" + eventID).modal('close');
-        //        $("#process").show();
-        //    }
-        //}
         function OnSuccessEvent(response) {
             if (response == "success") {
                 $("#process").hide();

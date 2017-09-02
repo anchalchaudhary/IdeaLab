@@ -1844,7 +1844,7 @@ if (jQuery) {
   'use strict';
 
   var _defaults = {
-    opacity: 0.5,
+    opacity: 0.9,
     inDuration: 250,
     outDuration: 250,
     ready: undefined,
