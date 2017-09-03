@@ -77,7 +77,7 @@ namespace IdeaLab.Controllers
                 DateOfEvent = x.DateOfEvent,
                 Details = x.Details
             }).ToList();
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(5000);
 
             ViewBag.EventList = eventList;
             if (model != null)

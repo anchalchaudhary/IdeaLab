@@ -197,7 +197,7 @@
                                 OnSuccess = "OnSuccessEvent",
                                 OnFailure = "OnFailureEvent",
                                 LoadingElementId = "progress"
-                            }, new { id = "eventform", style = "padding: 0 5vw;" }))
+                            }, new { id = "eventform_"+@item.EventID, style = "padding: 0 5vw;" }))
                             {
                                 <div class="input-field">
                                     @Html.TextBoxFor(model => model.eventregistration.Name, new { @id = "name", @class = "validate" })
@@ -215,7 +215,7 @@
                                     @Html.ValidationMessageFor(model => model.eventregistration.ContactNumber, "", new { @class = "error" })
                                 </div>
                                 <br />
-                                <button class="waves-effect waves-light btn red center" onclick="showEventLoader(@item.EventID);" style="width:100%;">Submit</button>
+                                <button type="submit" class="waves-effect waves-light btn red center" onclick="showEventLoader(@item.EventID);" style="width:100%;">Submit</button>
                             }
                         </div>
                         <div class="modal-footer">
@@ -278,6 +278,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.modal').modal();
+            $("#eventform").validate(); 
         });
 
         var OpenDetails = function (EventID) {
@@ -371,12 +372,18 @@
 
         var showEventLoader = function(EventID)
         {
-            var eventID = EventID.toString();
-            var check = $("#eventform").valid();
+            debugger
+            var eventID="";
+            eventID = EventID.toString();
+            var formID = "eventform_" + eventID;
+            var check = $("#eventform_"+eventID).valid();
             if(check)
             {
                 $("#modal_" + eventID).modal('close');
                 $("#process").show();
+            }
+            else{
+                document.getElementById("#eventform").reset();
             }
         }
         function OnSuccessEvent(response) {
