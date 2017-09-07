@@ -232,6 +232,31 @@ namespace IdeaLab.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult AddVideos()
+        {
+            if (Convert.ToInt32(Session["LoggedIn"]) == 1)
+            {
+                return View();
+            }
+            return View("Login");
+        }
+        [HttpPost]
+        public ActionResult AddVideos(VideosModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                tblVideo objtblVideo = new tblVideo();
+                objtblVideo.VideoLink = model.VideoLink;
+
+                db.tblVideos.Add(objtblVideo);
+                db.SaveChanges();
+
+                TempData["VideoAdded"] = "<script>alert('Video Added');</script>";
+            }
+
+            return RedirectToAction("AddVideos");
+        }
         public ActionResult Logout()
         {
             Session["LoggedIn"] = null;

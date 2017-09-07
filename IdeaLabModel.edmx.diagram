@@ -13,6 +13,7 @@
         <AssociationConnector Association="DBIdeaLabModel.FK__tblEventR__Event__117F9D94" />
         <EntityTypeShape EntityType="DBIdeaLabModel.tblUploadedImage" Width="1.5" PointX="0.75" PointY="8.25" />
         <AssociationConnector Association="DBIdeaLabModel.FK_tblEvents_tblUploadedImage" />
+        <EntityTypeShape EntityType="DBIdeaLabModel.tblVideo" Width="1.5" PointX="5.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

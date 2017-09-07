@@ -18,6 +18,7 @@
       <End Role="tblUploadedImage" EntitySet="tblUploadedImages" />
       <End Role="tblEvent" EntitySet="tblEvents" />
     </AssociationSet>
+    <EntitySet Name="tblVideos" EntityType="DBIdeaLabModel.tblVideo" />
   </EntityContainer>
   <EntityType Name="tblUser">
     <Key>
@@ -107,4 +108,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="tblVideo">
+    <Key>
+      <PropertyRef Name="VideoID" />
+    </Key>
+    <Property Name="VideoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VideoLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

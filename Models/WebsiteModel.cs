@@ -12,5 +12,6 @@ namespace IdeaLab.Models
         public EventsModel events { get; set; }
         public UserModel user { get; set; }
         public ImageStoreModel image { get; set; }
+        public VideosModel videos { get; set; }
     }
 }

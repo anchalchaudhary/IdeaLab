@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Anchal Chaudhary\Documents\Visual Studio 2015\Projects\IdeaLab\IdeaLab\IdeaLabModel.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\PD\SI\IdeaLab\IdeaLab\IdeaLabModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

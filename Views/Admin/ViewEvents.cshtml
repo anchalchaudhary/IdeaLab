@@ -45,8 +45,8 @@
 
 <script>
     var EditEvent = function (EventID) {
-        var url = "/Admin/EditEvent?EventID=" + EventID;
-        $("#EditEventModalBody").load(url, function () {
+        //var url = "IdeaLab/Admin/EditEvent?EventID=" + EventID;
+        $("#EditEventModalBody").load("@Url.Action("EditEvent","Admin")?EventID=" + EventID, function () {
             $("#EditEventModal").modal('open');
         })
     }
@@ -73,8 +73,8 @@
         var data = $("#hiddenEventID").val();
         $.ajax({
             type: "POST",
-            url: "/Admin/DeleteEvent",
-            data: { EventID: data },
+            url: '@Url.Action("DeleteEvent", "Admin")?EventID=' + data,
+            //data: { EventID: data },
             success: function (result) {
                 $("#DeleteEventModal").modal('close');
                 alert("Deleted");

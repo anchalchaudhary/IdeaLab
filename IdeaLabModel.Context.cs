@@ -30,5 +30,6 @@ namespace IdeaLab
         public virtual DbSet<tblEventRegistration> tblEventRegistrations { get; set; }
         public virtual DbSet<tblEvent> tblEvents { get; set; }
         public virtual DbSet<tblUploadedImage> tblUploadedImages { get; set; }
+        public virtual DbSet<tblVideo> tblVideos { get; set; }
     }
 }

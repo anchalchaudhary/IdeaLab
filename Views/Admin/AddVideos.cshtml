@@ -1,0 +1,33 @@
+﻿@model IdeaLab.Models.VideosModel
+@{
+    ViewBag.Title = "AddVideos";
+}
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+@Html.Raw(TempData["VideoAdded"])
+<h4 class="center">Add New Video</h4>
+<div class="row">
+    <div class="col m6 offset-m3">
+        @using (Html.BeginForm("AddVideos", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", style = "padding: 0 5vw;" }))
+        {
+            <div class="input-field">
+                @Html.TextBoxFor(model => model.VideoLink, new { @id = "videolink", @class = "validate" })
+                <label for="videolink">Video Link</label>
+                @Html.ValidationMessageFor(model => model.VideoLink, "", new { @class = "error" })
+            </div>
+            <br />
+            <button class="waves-effect waves-light btn red center" style="display: block;">ADD</button>
+        }
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="~/js/materialize.js"></script>
+<script src="~/js/init.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -57,8 +57,8 @@
         var data = $("#hiddenID").val();
         $.ajax({
             type: "POST",
-            url: "/Admin/DeleteIdea",
-            data: { ID: data },
+            url: '@Url.Action("DeleteIdea", "Admin")?ID=' + data,
+            //data: { ID: data },
             success: function (result) {
                 $("#DeleteIdeaModal").modal('close');
                 alert("Deleted");

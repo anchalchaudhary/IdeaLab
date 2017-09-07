@@ -1,7 +1,7 @@
 ﻿@model IdeaLab.Models.EventsModel
 <div>
     <form id="EditEventForm" style = "padding: 0 5vw;" >
-        @Html.HiddenFor(m => m.EventID)
+        @Html.HiddenFor(m => m.EventID, new { @id = "eventid" })
 
         @Html.LabelFor(model => model.EventName, "Event's Name")
         @Html.TextBoxFor(model => model.EventName, new { @id = "name", @class = "validate" })
@@ -28,19 +28,27 @@
 <script>
     $(document).ready(function () {
         $("#btnUpdate").click(function () {
-            var editedData = $("#EditEventForm").serialize();
+            debugger
+            var editedData = {
+                'EventID': $("#eventid").val(),
+                'EventName': $("#name").val().toString(),
+                'DateOfEvent': $("#date").val().toString(),
+                'Details': $("#details").val().toString()
+            };
+            //var editedData = $("#EditEventForm").serialize();
 
             if (!$("#EditEventForm").valid())
             {
                 return false;
             }
+            var URL = '@Url.Action("Index", "Admin")';
             $.ajax({
                 type: "POST",
-                url: "/Admin/Index",
-                data: editedData,
+                url: URL,
+                data: {model: editedData},
                 success: function () {
                     $("#EditEventModal").modal('close');
-                    window.location.href = "/Admin/ViewEvents";
+                    window.location.reload();
                 }
             })
         })

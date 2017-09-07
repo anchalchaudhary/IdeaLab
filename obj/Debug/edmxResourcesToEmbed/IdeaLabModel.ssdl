@@ -46,6 +46,13 @@
     <Property Name="BranchID" Type="int" />
     <Property Name="Idea" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="tblVideos">
+    <Key>
+      <PropertyRef Name="VideoID" />
+    </Key>
+    <Property Name="VideoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VideoLink" Type="nvarchar(max)" />
+  </EntityType>
   <Association Name="FK__tblEventR__Event__117F9D94">
     <End Role="tblEvents" Type="Self.tblEvents" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -90,6 +97,7 @@
     <EntitySet Name="tblEvents" EntityType="Self.tblEvents" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblUploadedImage" EntityType="Self.tblUploadedImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblUsers" EntityType="Self.tblUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblVideos" EntityType="Self.tblVideos" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__tblEventR__Event__117F9D94" Association="Self.FK__tblEventR__Event__117F9D94">
       <End Role="tblEvents" EntitySet="tblEvents" />
       <End Role="tblEventRegistration" EntitySet="tblEventRegistration" />

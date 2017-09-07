@@ -54,8 +54,8 @@
         var data = $("#hiddenEventRegID").val();
         $.ajax({
             type: "POST",
-            url: "/Admin/DeleteEventReg",
-            data: { RegistrationID: data },
+            url: '@Url.Action("DeleteEventReg", "Admin")?RegistrationID=' + data,
+            //data: { RegistrationID: data },
             success: function (result) {
                 $("#DeleteEventRegModal").modal('close');
                 alert("Deleted");
