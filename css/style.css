@@ -57,3 +57,9 @@ p {
 footer.page-footer {
   margin: 0;
 }
+
+@media (min-width:1100px) {
+    #idealogo {
+        width: 25vh !important;
+    }
+}

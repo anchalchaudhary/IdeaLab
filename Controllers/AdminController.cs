@@ -244,18 +244,22 @@ namespace IdeaLab.Controllers
         [HttpPost]
         public ActionResult AddVideos(VideosModel model)
         {
-            if(ModelState.IsValid)
+            if (Session["LoggedIn"] != null)
             {
-                tblVideo objtblVideo = new tblVideo();
-                objtblVideo.VideoLink = model.VideoLink;
+                if (ModelState.IsValid)
+                {
+                    tblVideo objtblVideo = new tblVideo();
+                    objtblVideo.VideoLink = "https://www.youtube.com/embed/" + model.VideoLink;
 
-                db.tblVideos.Add(objtblVideo);
-                db.SaveChanges();
+                    db.tblVideos.Add(objtblVideo);
+                    db.SaveChanges();
 
-                TempData["VideoAdded"] = "<script>alert('Video Added');</script>";
+                    TempData["VideoAdded"] = "<script>alert('Video Added');</script>";
+                }
+                return RedirectToAction("AddVideos");
             }
 
-            return RedirectToAction("AddVideos");
+            return RedirectToAction("Login");
         }
         public ActionResult Logout()
         {

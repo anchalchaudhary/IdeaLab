@@ -12,7 +12,7 @@
     <nav class="white" role="navigation">
     @*<nav class="nav-extended white" role="navigation">*@
         <div class="nav-wrapper container ">
-            <a id="logo-container" href="#" class="brand-logo"><img src="~/logo.png" style="height: 10vh; width: 32vh; "></a>
+            <a id="logo-container" href="http://www.akgec.in/idealab" class="brand-logo"><img src="~/logo.png" style="width: 20vh;" id="idealogo"></a>
             <h5 class="black-text right hide-on-med-and-down ">
                 ADMIN PANEL
             </h5>
@@ -30,10 +30,10 @@
                         <ul class="right hide-on-med-and-down ">
                             <li>@Html.ActionLink("Add Events", "Index", "Admin", new { @class = "grey-text text-darken-4" })</li>
                             <li>@Html.ActionLink("Events", "ViewEvents", "Admin", new { @class = "grey-text text-darken-4" })</li>
-                            <li class="tab">@Html.ActionLink("Add Videos", "AddVideos", "Admin", new { @class = "grey-text text-darken-4" })</li>
-                            <li class="tab">@Html.ActionLink("Event Registrations", "ViewEventRegistrations", "Admin", new { @class = "grey-text text-darken-4" })</li>
-                            <li class="tab">@Html.ActionLink("Ideas", "ViewIdeas", "Admin", new { @class = "grey-text text-darken-4" })</li>
-                            <li class="tab">@Html.ActionLink("Logout", "Logout", "Admin", new { @class = "blue-text" })</li>
+                            <li>@Html.ActionLink("Add Videos", "AddVideos", "Admin", new { @class = "grey-text text-darken-4" })</li>
+                            <li>@Html.ActionLink("Event Registrations", "ViewEventRegistrations", "Admin", new { @class = "grey-text text-darken-4" })</li>
+                            <li>@Html.ActionLink("Ideas", "ViewIdeas", "Admin", new { @class = "grey-text text-darken-4" })</li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Admin", new { @class = "blue-text" })</li>
                         </ul>
                         <ul id="nav-mobile" class="side-nav">
                             <li>@Html.ActionLink("Add Events", "Index", "Admin", new { @class = "grey-text text-darken-4" })</li>

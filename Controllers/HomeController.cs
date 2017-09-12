@@ -26,8 +26,11 @@ namespace IdeaLab.Controllers
         
             ViewBag.VideosList = videolist;
 
-            //Get top 3 events from farthest date in descending order
-            List<EventsModel> eventList = db.tblEvents.OrderByDescending(x => x.DateOfEvent).Select(x => new EventsModel
+            //Get top 3 events from latest date
+
+            List<tblEvent> myEventList = db.tblEvents.OrderBy(x => x.DateOfEvent).ToList();
+
+            List<EventsModel> eventList = db.tblEvents.OrderBy(x=>x.DateOfEvent).Where(x => x.DateOfEvent >= DateTime.Now).Select(x => new EventsModel
             {
                 EventID = x.EventID,
                 EventName = x.EventName,

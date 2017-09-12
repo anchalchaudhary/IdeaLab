@@ -177,6 +177,6 @@ E:\PD\SI\IdeaLab\IdeaLab\bin\System.Web.Webpages.Deployment.xml
 E:\PD\SI\IdeaLab\IdeaLab\bin\System.Web.Webpages.Razor.xml
 E:\PD\SI\IdeaLab\IdeaLab\bin\System.Web.Helpers.xml
 E:\PD\SI\IdeaLab\IdeaLab\bin\System.Web.Mvc.xml
-E:\PD\SI\IdeaLab\IdeaLab\obj\Debug\IdeaLab.csprojResolveAssemblyReference.cache
 E:\PD\SI\IdeaLab\IdeaLab\obj\Debug\IdeaLab.dll
 E:\PD\SI\IdeaLab\IdeaLab\obj\Debug\IdeaLab.pdb
+E:\PD\SI\IdeaLab\IdeaLab\obj\Debug\IdeaLab.csprojResolveAssemblyReference.cache
